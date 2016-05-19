@@ -1,20 +1,14 @@
 var generators = require('yeoman-generator');
-var _ = require('lodash');
-var questions = [
-  {
-    type: 'input',
-    name: 'name',
-    message: 'Enter a name for your new theme'
-  }
-];
+var questions = require('./includes/questions.js');
 
 module.exports = generators.Base.extend({
 
   constructor: function() {
     generators.Base.apply(this, arguments);
 
-    this.argument('appname', {type: String, required: true});
-    questions.default = _.camelCase(this.appname);
+    this.argument('path', {type: String, required: true});
+    this.argument('dirname', {type: String, required: false});
+    this.environments = [];
   },
 
   initializing: function() {
@@ -22,19 +16,32 @@ module.exports = generators.Base.extend({
   },
 
   prompting: function() {
-    return this.prompt(questions)
+    return this.prompt(questions.theme(this))
       .then(function(answers) {
-        this.log('hi, ' + answers.name); // do stuff with returned answers
+        var env = answers.environments;
+        if (answers.customEnv) {
+          env.pop(); // removes `custom` selection
+          env = env.concat(answers.customEnv.split(/,\s*/));
+        }
+
+        this.environments = env;
+        if (answers.dirname) {
+          this.dirname = answers.dirname;
+        }
       }.bind(this));
   },
 
   configuring: function() {
-    this.log('Im configuring now');
-    // setup theme configuration files (json & yaml)
+    this.destinationRoot(this.path + '/' + this.dirname);
+    this.config.set('environments', this.environments);
+    this.config.save();
   },
 
   writing: function() {
-    this.log('Im writing now');
+    var readFile = this.templatePath('config.yml');
+    var writeFile = this.destinationPath('config.yml');
+    this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
+
     // write `src` folder content for the theme
   },
 
