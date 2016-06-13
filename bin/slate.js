@@ -7,18 +7,20 @@ var slate = require('../lib');
 
 var validOpts = {
   version: Boolean,
-  manual: Boolean // flag for manual deploy (used with deploy command)
+  manual: Boolean, // flag for manual deploy (used with deploy command)
+  nosync: Boolean
 };
 var shorthand = {
   v: '--version',
-  m: '--manual'
+  m: '--manual',
+  ns: '--nosync'
 };
 
 // filtered list of valid options that were passed w/ the command
 var opts = parseOptions(validOpts, shorthand);
 if (opts.argv.remain[0]) {
-  var command = opts.argv.remain[0];
-  var args = opts.argv.remain.slice(1); // the remaining args passed with the command
+  var command = opts.argv.remain[0]; // the first arg in the `remain` array is the command
+  var args = opts.argv.remain.slice(1); // the remaining args to be passed with the command
 
   if (_.isFunction(slate[command])) {
     slate[command](args, opts);
