@@ -28,6 +28,12 @@ module.exports = {
         name: 'customEnv',
         message: 'Enter the environment names you would like to create (comma separated)',
         when: hasCustomEnvironments
+      },
+      {
+        type: 'input',
+        name: 'repo',
+        message: 'Which repo would you like to start with?',
+        default: 'Shopify/slate'
       }
     ];
 
