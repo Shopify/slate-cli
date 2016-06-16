@@ -1,9 +1,8 @@
 var generators = require('yeoman-generator');
-var NodeGit = require("nodegit");
 var path = require('path');
 var _ = require('lodash');
 var questions = require('./includes/questions');
-var fetchRepo = require('./includes/fetchRepo.js');
+var fetchRepo = require('./includes/cloneRepo.js');
 
 
 
@@ -47,16 +46,12 @@ var mainGenerator = generators.Base.extend({
   },
 
   writing: function() {
-    var done = this.async();
     var readFile = this.templatePath('config.yml');
     var writeFile = this.destinationPath('config.yml');
+  
     this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
-
-    this._fetchRepo(this.repo)
-      .then(function (repo) {
-        repo.directory('.', this.destinationPath());
-        done();
-      }.bind(this));
+    
+    this._cloneRepo(this.repo, this.destinationPath());
 
     // write `src` folder content for the theme
   },
@@ -71,6 +66,6 @@ var mainGenerator = generators.Base.extend({
   }
 });
 
-_.extend(mainGenerator.prototype, require('./includes/fetchRepo.js'));
+_.extend(mainGenerator.prototype, require('./includes/cloneRepo.js'));
 
 module.exports = mainGenerator;
