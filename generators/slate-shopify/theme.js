@@ -1,7 +1,13 @@
 var generators = require('yeoman-generator');
-var questions = require('./includes/questions.js');
+var NodeGit = require("nodegit");
+var path = require('path');
+var _ = require('lodash');
+var questions = require('./includes/questions');
+var fetchRepo = require('./includes/fetchRepo.js');
 
-module.exports = generators.Base.extend({
+
+
+var mainGenerator = generators.Base.extend({
 
   constructor: function() {
     generators.Base.apply(this, arguments);
@@ -25,9 +31,12 @@ module.exports = generators.Base.extend({
         }
 
         this.environments = env;
+
         if (answers.dirname) {
           this.dirname = answers.dirname;
         }
+
+        this.repo = answers.repo;
       }.bind(this));
   },
 
@@ -38,9 +47,16 @@ module.exports = generators.Base.extend({
   },
 
   writing: function() {
+    var done = this.async();
     var readFile = this.templatePath('config.yml');
     var writeFile = this.destinationPath('config.yml');
     this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
+
+    this._fetchRepo(this.repo)
+      .then(function (repo) {
+        repo.directory('.', this.destinationPath());
+        done();
+      }.bind(this));
 
     // write `src` folder content for the theme
   },
@@ -54,3 +70,7 @@ module.exports = generators.Base.extend({
     this.log('Im finished now');
   }
 });
+
+_.extend(mainGenerator.prototype, require('./includes/fetchRepo.js'));
+
+module.exports = mainGenerator;
