@@ -14,8 +14,6 @@ function getCredentials (url, userName) {
 
 module.exports = {
   _cloneRepo: function (repo, destination) {
-    var done = this.async();
-    var remoteDir = Promise.promisify(this.remoteDir, {context: this});
     var cache = path.join(this.cacheRoot(), repo);
     var url = 'git@github.com:' + repo + '.git';
     var options = {};
@@ -28,14 +26,8 @@ module.exports = {
         return NodeGit.Clone(url, cache, options)
       })
       .then(function() {
-        return remoteDir(cache);
-      })
-      .then(function(remote) {
-        remote.directory('.', destination);
-        done();
-      })
-      .catch(function(err) {
-        console.log(err);
-      });
+        var glob = [cache + '/**', '!' + cache + '/.git/**'];
+        this.fs.copy(glob, destination, {globOptions: {dot: true}});
+      }.bind(this))
   }
 };
