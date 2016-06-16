@@ -436,7 +436,8 @@
       "dependencies": {
         "object-assign": {
           "version": "4.1.0",
-          "from": "object-assign@>=4.0.1 <5.0.0"
+          "from": "object-assign@4.1.0",
+          "resolved": "https://registry.npmjs.org/object-assign/-/object-assign-4.1.0.tgz"
         }
       }
     },
@@ -2652,7 +2653,7 @@
     },
     "rimraf": {
       "version": "2.5.2",
-      "from": "rimraf@>=2.2.0 <3.0.0",
+      "from": "rimraf@latest",
       "resolved": "https://registry.npmjs.org/rimraf/-/rimraf-2.5.2.tgz"
     },
     "root-check": {

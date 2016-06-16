@@ -25,6 +25,7 @@
     "global-npm": "0.3.0",
     "lodash": "4.13.1",
     "nopt": "3.0.6",
+    "rimraf": "^2.5.2",
     "update-notifier": "0.7.0",
     "yeoman-generator": "0.23.3",
     "yo": "1.8.4"
