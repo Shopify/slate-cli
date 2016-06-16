@@ -4,8 +4,6 @@ var _ = require('lodash');
 var questions = require('./includes/questions');
 var fetchRepo = require('./includes/cloneRepo.js');
 
-
-
 var mainGenerator = generators.Base.extend({
 
   constructor: function() {
