@@ -46,12 +46,12 @@ var mainGenerator = generators.Base.extend({
   writing: function() {
     var readFile = this.templatePath('config.yml');
     var writeFile = this.destinationPath('config.yml');
-  
-    this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
-    
-    this._cloneRepo(this.repo, this.destinationPath());
 
-    // write `src` folder content for the theme
+    this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
+
+    return this._cloneRepo(this.repo, this.destinationPath());
+    
+    this.remote();
   },
 
   install: function() {
