@@ -22,6 +22,7 @@
   },
   "dependencies": {
     "bin-wrapper": "3.0.2",
+    "bluebird": "3.4.1",
     "find-root": "1.0.0",
     "global-npm": "0.3.0",
     "lodash": "4.13.1",
