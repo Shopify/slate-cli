@@ -52,8 +52,7 @@
     "rules": {
       "no-lonely-if": 0,
       "comma-dangle": 0,
-      "spaced-comment": 0,
-      "no-unsafe-finally": 0
+      "spaced-comment": 0
     }
   }
 }
