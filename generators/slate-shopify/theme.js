@@ -1,5 +1,4 @@
 var generators = require('yeoman-generator');
-var path = require('path');
 var _ = require('lodash');
 var questions = require('./includes/questions');
 var fetchRepo = require('./includes/cloneRepo.js');
@@ -9,8 +8,14 @@ var mainGenerator = generators.Base.extend({
   constructor: function() {
     generators.Base.apply(this, arguments);
 
-    this.argument('path', {type: String, required: true});
-    this.argument('dirname', {type: String, required: false});
+    this.argument('path', {
+      type: String,
+      required: true
+    });
+    this.argument('dirname', {
+      type: String,
+      required: false
+    });
     this.environments = [];
   },
 
@@ -47,11 +52,11 @@ var mainGenerator = generators.Base.extend({
     var readFile = this.templatePath('config.yml');
     var writeFile = this.destinationPath('config.yml');
 
-    this.fs.copyTpl(readFile, writeFile, {environments: this.environments});
+    this.fs.copyTpl(readFile, writeFile, {
+      environments: this.environments
+    });
 
     return this._cloneRepo(this.repo, this.destinationPath());
-    
-    this.remote();
   },
 
   install: function() {
@@ -64,6 +69,6 @@ var mainGenerator = generators.Base.extend({
   }
 });
 
-_.extend(mainGenerator.prototype, require('./includes/cloneRepo.js'));
+_.extend(mainGenerator.prototype, fetchRepo);
 
 module.exports = mainGenerator;
