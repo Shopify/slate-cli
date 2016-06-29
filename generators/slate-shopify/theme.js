@@ -20,7 +20,7 @@ var mainGenerator = generators.Base.extend({
   },
 
   initializing: function() {
-    this.log('Im initializing now');
+    this.log('Theme generator initializing...');
   },
 
   prompting: function() {
@@ -60,12 +60,20 @@ var mainGenerator = generators.Base.extend({
   },
 
   install: function() {
-    this.log('Im installing now');
-    // npm install, any other installs to run?
+    try {
+      this.npmInstall(['gulp-cli'], {
+        'global': true
+      });
+    } catch (err) {
+      // might get permission error
+      this.log(err);
+    }
+
+    this.npmInstall();
   },
 
   end: function() {
-    this.log('Im finished now');
+    this.log('Theme generator end...');
   }
 });
 
