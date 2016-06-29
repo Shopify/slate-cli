@@ -39,6 +39,7 @@ var mainGenerator = generators.Base.extend({
         }
 
         this.repo = answers.repo;
+        this.initGit = answers.initGit;
       }.bind(this));
   },
 
@@ -56,19 +57,21 @@ var mainGenerator = generators.Base.extend({
       environments: this.environments
     });
 
-    return this._cloneRepo(this.repo, this.destinationPath());
+    return this._cloneRepo(this.repo, this.destinationPath())
+      .then(function() {
+        var pkg = this.fs.readJSON(this.destinationPath('package.json'));
+        
+        pkg.name = this.dirname;
+        pkg.version = "0.1.0";
+        delete pkg.repository;
+        
+        this.fs.writeJSON(this.destinationPath('package.json'), pkg);
+        
+        if (this.initGit) return this._initRepo(this.destinationRoot(), 0);
+      }.bind(this));
   },
 
   install: function() {
-    try {
-      this.npmInstall(['gulp-cli'], {
-        'global': true
-      });
-    } catch (err) {
-      // might get permission error
-      this.log(err);
-    }
-
     this.npmInstall();
   },
 

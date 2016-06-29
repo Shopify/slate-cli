@@ -25,6 +25,9 @@ module.exports = {
           }
         });
       }.bind(this));
+  },
+  _initRepo: function(pathToRepo, isBare) {
+    return NodeGit.Repository.init(pathToRepo, isBare);
   }
 };
 

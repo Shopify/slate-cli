@@ -34,6 +34,11 @@ module.exports = {
         name: 'repo',
         message: 'Which repo would you like to start with?',
         default: 'Shopify/slate'
+      },
+      {
+        type: 'confirm',
+        name: 'initGit',
+        message: 'Will you be tracking this theme in git?'
       }
     ];
 
