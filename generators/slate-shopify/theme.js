@@ -33,6 +33,7 @@ var mainGenerator = generators.Base.extend({
         }
 
         this.environments = env;
+        this.defaultEnv = answers.defaultEnv;
 
         if (answers.dirname) {
           this.dirname = answers.dirname;
@@ -40,38 +41,57 @@ var mainGenerator = generators.Base.extend({
 
         this.repo = answers.repo;
         this.initGit = answers.initGit;
+        this.repositoryUrl = answers.repositoryUrl;
       }.bind(this));
   },
 
   configuring: function() {
     this.destinationRoot(this.path + '/' + this.dirname);
     this.config.set('environments', this.environments);
+    this.config.set('name', this.dirname);
     this.config.save();
   },
 
   writing: function() {
-    var readFile = this.templatePath('config.yml');
-    var writeFile = this.destinationPath('config.yml');
+    // TODO: Open this file after write so that devs know to update
+    this.fs.copyTpl(
+      this.templatePath('config.yml.ejs'),
+      this.destinationPath('config.yml'), {
+        environments: this.environments
+      }
+    );
 
-    this.fs.copyTpl(readFile, writeFile, {
-      environments: this.environments
-    });
+    this.fs.copyTpl(
+      this.templatePath('package.json.ejs'),
+      this.destinationPath('package.json'), {
+        name: this.dirname,
+        hasGitRepo: this.initGit,
+        repositoryUrl: this.repositoryUrl
+      }
+    );
+
+    this.fs.copyTpl(
+      this.templatePath('tasks-includes-config.js.ejs'),
+      this.destinationPath('tasks/includes/config.js'), {
+        env: this.defaultEnv
+      }
+    );
 
     return this._cloneRepo(this.repo, this.destinationPath())
       .then(function() {
-        var pkg = this.fs.readJSON(this.destinationPath('package.json'));
-        
-        pkg.name = this.dirname;
-        pkg.version = "0.1.0";
-        delete pkg.repository;
-        
-        this.fs.writeJSON(this.destinationPath('package.json'), pkg);
-        
-        if (this.initGit) return this._initRepo(this.destinationRoot(), 0);
+        if (this.initGit) {
+          return this._initRepo(this.destinationRoot(), 0)
+            .then(function(repo) {
+              return this._addRemote(repo, 'origin', this.repositoryUrl);
+            }.bind(this));
+        } else {
+          return true;
+        }
       }.bind(this));
   },
 
   install: function() {
+    // TODO: Try install dependencies to see if it auto-detects bower/npm
     this.npmInstall();
   },
 

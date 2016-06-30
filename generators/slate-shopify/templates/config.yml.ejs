@@ -1,10 +1,18 @@
+# TODO: Add basic info about updating this file and links to more info
+# open my-store-name.myshopify.com/admin/apps/private
+
 <% environments.forEach(function(env) { %>
 <%= env %>:
   theme-id: (optional - if empty, you will write to the active theme)
   password: XXXXXXXXXX
   store: my-store-name.myshopify.com
-<% }); %>
   ignore_files:
+    - config/settings_data.json
     - config/settings.html
     - "*.png"
     - "*.jpg"
+    - "*.jpeg"
+    - "*.gif"
+    - "*.pdf"
+    - "*.mp4"
+<% }); %>

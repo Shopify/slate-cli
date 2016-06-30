@@ -1,46 +1,59 @@
 module.exports = {
   theme: function(generator) {
-    var questions = [
-      {
-        type: 'confirm',
-        name: 'multiEnv',
-        message: 'Will you be deploying this theme to multiple environments?'
-      },
-      {
-        type: 'checkbox',
-        name: 'environments',
-        message: 'Which environments would you like to use?',
-        choices: [
-          {name: 'production', checked: true},
-          {name: 'staging', checked: true},
-          {name: 'development', checked: true},
-          {name: 'custom'}
-        ],
-        when: hasMultipleEnvironments,
-        validate: function(answer) {
-          return answer.length < 1
-            ? 'You must create at least one environment.'
-            : true;
-        }
-      },
-      {
-        type: 'input',
-        name: 'customEnv',
-        message: 'Enter the environment names you would like to create (comma separated)',
-        when: hasCustomEnvironments
-      },
-      {
-        type: 'input',
-        name: 'repo',
-        message: 'Which repo would you like to start with?',
-        default: 'Shopify/slate'
-      },
-      {
-        type: 'confirm',
-        name: 'initGit',
-        message: 'Will you be tracking this theme in git?'
+    var questions = [{
+      type: 'confirm',
+      name: 'multiEnv',
+      message: 'Will you be deploying this theme to multiple environments?'
+    }, {
+      type: 'checkbox',
+      name: 'environments',
+      message: 'Which environments would you like to use?',
+      choices: [{
+        name: 'production',
+        checked: true
+      }, {
+        name: 'staging',
+        checked: true
+      }, {
+        name: 'development',
+        checked: true
+      }, {
+        name: 'custom'
+      }],
+      when: hasMultipleEnvironments,
+      validate: requireEnv
+    }, {
+      type: 'input',
+      name: 'customEnv',
+      message: 'Enter the environment names you would like to create (comma separated)',
+      when: hasCustomEnvironments
+    }, {
+      type: 'list',
+      name: 'defaultEnv',
+      message: 'Which environment would you like to use as default?',
+      choices: getDefaultEnvSelect,
+      when: hasMultipleEnvironments,
+      validate: requireEnv
+    }, {
+      type: 'input',
+      name: 'repo',
+      message: 'Which repo would you like to start with?',
+      default: 'Shopify/slate'
+    }, {
+      type: 'confirm',
+      name: 'initGit',
+      message: 'Will you be tracking this theme in git?'
+    }, {
+      type: 'input',
+      name: 'repositoryUrl',
+      message: 'Enter the URL of your git repository',
+      when: hasGitRepo,
+      validate: function(answer) {
+        return answer.length < 1
+        ? 'You must provide a URL for your git repository.'
+        : true;
       }
-    ];
+    }];
 
     if (!generator.dirname) {
       questions.unshift({
@@ -87,4 +100,36 @@ function hasCustomEnvironments(answers) {
     }
   });
   return hasCustom;
+}
+
+/**
+ *
+ * @param answers {Object}
+ * @returns {Boolean}
+ * @private
+ */
+function hasGitRepo(answers) {
+  return answers.initGit;
+}
+
+/**
+ *
+ * @param answers {Object}
+ * @returns {Boolean}
+ * @private
+ */
+function getDefaultEnvSelect(answers) {
+  return answers.environments;
+}
+
+/**
+ *
+ * @param answers {Object}
+ * @returns {Boolean}
+ * @private
+ */
+function requireEnv(answer) {
+  return answer.length < 1
+    ? 'You must create at least one environment.'
+    : true;
 }

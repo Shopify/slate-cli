@@ -7,6 +7,7 @@ var _ = require('lodash');
 module.exports = {
   _cloneRepo: function(repo, destination) {
     var cache = path.join(this.cacheRoot(), repo);
+    // TODO: should we be forcing them to use GitHub??? YES
     var url = 'git@github.com:' + repo + '.git';
     var options = {};
 
@@ -18,7 +19,15 @@ module.exports = {
         return NodeGit.Clone(url, cache, options);
       })
       .then(function() {
-        var glob = [cache + '/**', '!' + cache + '/.git/**'];
+        var glob = [
+          cache + '/**',
+          '!' + cache + '/.git/**',
+          '!' + cache + '/jsdoc-conf.json',
+          '!' + cache + '/docs/**',
+          '!' + cache + '/package.json',
+          '!' + cache + '/tasks/includes/config.js'
+        ];
+
         this.fs.copy(glob, destination, {
           globOptions: {
             dot: true
@@ -28,6 +37,12 @@ module.exports = {
   },
   _initRepo: function(pathToRepo, isBare) {
     return NodeGit.Repository.init(pathToRepo, isBare);
+  },
+  _addRemote: function(repo, name, url) {
+    return NodeGit.Remote.create(repo, name, url)
+      .catch(function(err) {
+        this.log(err);
+      }.bind(this));
   }
 };
 
