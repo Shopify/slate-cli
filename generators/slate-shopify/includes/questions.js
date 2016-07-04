@@ -38,7 +38,7 @@ module.exports = {
       type: 'input',
       name: 'repo',
       message: 'Which repo would you like to start with?',
-      default: 'Shopify/slate'
+      default: 'git@github.com:Shopify/slate.git'
     }, {
       type: 'confirm',
       name: 'initGit',

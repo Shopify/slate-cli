@@ -5,10 +5,15 @@ var rimraf = Promise.promisify(require('rimraf'));
 var _ = require('lodash');
 
 module.exports = {
+
+  /**
+   * Uses NodeGit to clone git repository and writes it to the destination path
+   *
+   * @param repo {String} - the location (url) of git repository
+   * @param destination {String} - the local destination path to write repository
+   */
   _cloneRepo: function(repo, destination) {
     var cache = path.join(this.cacheRoot(), repo);
-    // TODO: should we be forcing them to use GitHub??? YES
-    var url = 'git@github.com:' + repo + '.git';
     var options = {};
 
     _.set(options, 'fetchOpts.callbacks.certificateCheck', checkCertificate);
@@ -16,7 +21,7 @@ module.exports = {
 
     return rimraf(cache)
       .then(function() {
-        return NodeGit.Clone(url, cache, options);
+        return NodeGit.Clone(repo, cache, options);
       })
       .then(function() {
         var glob = [
@@ -35,9 +40,24 @@ module.exports = {
         });
       }.bind(this));
   },
-  _initRepo: function(pathToRepo, isBare) {
-    return NodeGit.Repository.init(pathToRepo, isBare);
+
+  /**
+   * Uses NodeGit to initalize git repository
+   *
+   * @param repo {String} - the local path to the repository
+   * @param isBare {Boolean} - whether to use provided path as the working directory
+   */
+  _initRepo: function(repo, isBare) {
+    return NodeGit.Repository.init(repo, isBare);
   },
+
+  /**
+   * Uses NodeGit to add remote to git repository
+   *
+   * @param repo {String} - the local path to the repository
+   * @param name {String} - the name of the git remote
+   * @param url {String} - the url of the git remote
+   */
   _addRemote: function(repo, name, url) {
     return NodeGit.Remote.create(repo, name, url)
       .catch(function(err) {
@@ -46,6 +66,11 @@ module.exports = {
   }
 };
 
+/**
+ * OS X libgit2 is unable to look up GitHub certificates correctly.
+ * In order to bypass this problem, we're going to passthrough
+ * the certificate check.
+ */
 function checkCertificate() {
   return 1;
 }

@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator');
 var _ = require('lodash');
+var open = require('open');
 var questions = require('./includes/questions');
 var fetchRepo = require('./includes/cloneRepo.js');
 
@@ -53,7 +54,6 @@ var mainGenerator = generators.Base.extend({
   },
 
   writing: function() {
-    // TODO: Open this file after write so that devs know to update
     this.fs.copyTpl(
       this.templatePath('config.yml.ejs'),
       this.destinationPath('config.yml'), {
@@ -91,12 +91,17 @@ var mainGenerator = generators.Base.extend({
   },
 
   install: function() {
-    // TODO: Try install dependencies to see if it auto-detects bower/npm
-    this.npmInstall();
+    if (this.fs.exists(this.destinationPath('package.json'))) {
+      this.npmInstall();
+    }
+
+    if (this.fs.exists(this.destinationPath('bower.json'))) {
+      this.bowerInstall();
+    }
   },
 
   end: function() {
-    this.log('Theme generator end...');
+    open(this.destinationPath('config.yml'));
   }
 });
 
