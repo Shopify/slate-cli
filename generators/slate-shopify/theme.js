@@ -20,10 +20,6 @@ var mainGenerator = generators.Base.extend({
     this.environments = [];
   },
 
-  initializing: function() {
-    this.log('Theme generator initializing...');
-  },
-
   prompting: function() {
     return this.prompt(questions.theme(this))
       .then(function(answers) {
