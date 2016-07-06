@@ -78,6 +78,18 @@ function checkCertificate() {
   return 1;
 }
 
+/**
+ * In order to authorize the clone operation, we'll need to respond
+ * to a low-level callback that expects credentials to be passed.
+ * This function will respond back with the credentials from the
+ * agent. You'll notice we handle the second argument passed to
+ * credentials, userName.
+ *
+ * @param url {String}
+ * @param userName {String}
+ * @returns {String} - The newly created credential object.
+ * @private
+ */
 function getCredentials(url, userName) {
   return NodeGit.Cred.sshKeyFromAgent(userName);
 }
