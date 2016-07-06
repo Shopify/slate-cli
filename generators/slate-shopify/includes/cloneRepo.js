@@ -70,6 +70,9 @@ module.exports = {
  * OS X libgit2 is unable to look up GitHub certificates correctly.
  * In order to bypass this problem, we're going to passthrough
  * the certificate check.
+ *
+ * @returns {Boolean}
+ * @private
  */
 function checkCertificate() {
   return 1;
