@@ -30,7 +30,7 @@
     "nodegit": "0.14.1",
     "nopt": "3.0.6",
     "open": "0.0.5",
-    "rimraf": "^2.5.2",
+    "rimraf": "2.5.2",
     "update-notifier": "0.7.0",
     "yeoman-generator": "0.23.3",
     "yo": "1.8.4"
