@@ -25,7 +25,7 @@ module.exports = {
     }, {
       type: 'input',
       name: 'customEnv',
-      message: 'Enter the environment names you would like to create (comma separated)',
+      message: 'Enter the custom environment names you would like to create (comma separated)',
       when: hasCustomEnvironments
     }, {
       type: 'list',
