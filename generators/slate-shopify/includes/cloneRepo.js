@@ -30,8 +30,32 @@ module.exports = {
           '!' + cache + '/jsdoc-conf.json',
           '!' + cache + '/docs/**',
           '!' + cache + '/package.json',
-          '!' + cache + '/tasks/includes/config.js'
+          '!' + cache + '/tasks/includes/config.js',
+          '!' + cache + '/generators/**'
         ];
+
+        this.fs.copyTpl(
+          cache + '/generators/config.yml.ejs',
+          destination, {
+            environments: this.environments
+          }
+        );
+
+        this.fs.copyTpl(
+          cache + '/generators/package.json.ejs',
+          destination, {
+            name: this.dirname,
+            hasGitRepo: this.initGit,
+            repositoryUrl: this.repositoryUrl
+          }
+        );
+
+        this.fs.copyTpl(
+          cache + '/generators/tasks/includes/config.js.ejs',
+          path.join(destination, '/tasks/includes'), {
+            env: this.defaultEnv
+          }
+        );
 
         this.fs.copy(glob, destination, {
           globOptions: {

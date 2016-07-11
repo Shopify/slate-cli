@@ -50,29 +50,6 @@ var mainGenerator = generators.Base.extend({
   },
 
   writing: function() {
-    this.fs.copyTpl(
-      this.templatePath('config.yml.ejs'),
-      this.destinationPath('config.yml'), {
-        environments: this.environments
-      }
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('package.json.ejs'),
-      this.destinationPath('package.json'), {
-        name: this.dirname,
-        hasGitRepo: this.initGit,
-        repositoryUrl: this.repositoryUrl
-      }
-    );
-
-    this.fs.copyTpl(
-      this.templatePath('tasks-includes-config.js.ejs'),
-      this.destinationPath('tasks/includes/config.js'), {
-        env: this.defaultEnv
-      }
-    );
-
     return this._cloneRepo(this.repo, this.destinationPath())
       .then(function() {
         if (this.initGit) {
