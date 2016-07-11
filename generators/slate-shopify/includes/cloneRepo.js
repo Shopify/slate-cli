@@ -34,16 +34,22 @@ module.exports = {
           '!' + cache + '/generators/**'
         ];
 
+        this.fs.copy(glob, destination, {
+          globOptions: {
+            dot: true
+          }
+        });
+
         this.fs.copyTpl(
-          cache + '/generators/config.yml.ejs',
-          destination, {
+          path.join(cache, '/generators/config.yml.ejs'),
+          path.join(destination, '/config.yml'), {
             environments: this.environments
           }
         );
 
         this.fs.copyTpl(
-          cache + '/generators/package.json.ejs',
-          destination, {
+          path.join(cache, '/generators/package.json.ejs'),
+          path.join(destination, '/package.json'), {
             name: this.dirname,
             hasGitRepo: this.initGit,
             repositoryUrl: this.repositoryUrl
@@ -51,17 +57,11 @@ module.exports = {
         );
 
         this.fs.copyTpl(
-          cache + '/generators/tasks/includes/config.js.ejs',
-          path.join(destination, '/tasks/includes'), {
+          path.join(cache, '/generators/tasks/includes/config.js.ejs'),
+          path.join(destination, '/tasks/includes/config.js'), {
             env: this.defaultEnv
           }
         );
-
-        this.fs.copy(glob, destination, {
-          globOptions: {
-            dot: true
-          }
-        });
       }.bind(this));
   },
 
