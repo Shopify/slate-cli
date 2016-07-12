@@ -50,8 +50,8 @@ module.exports = {
       when: hasGitRepo,
       validate: function(answer) {
         return answer.length < 1
-        ? 'You must provide a URL for your git repository.'
-        : true;
+          ? 'You must provide a URL for your git repository.'
+          : true;
       }
     }];
 
