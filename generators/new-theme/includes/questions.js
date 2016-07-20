@@ -34,25 +34,6 @@ module.exports = {
       choices: getDefaultEnvSelect,
       when: hasMultipleEnvironments,
       validate: requireEnv
-    }, {
-      type: 'input',
-      name: 'repo',
-      message: 'Which repo would you like to start with?',
-      default: 'git@github.com:Shopify/slate.git'
-    }, {
-      type: 'confirm',
-      name: 'initGit',
-      message: 'Will you be tracking this theme in git?'
-    }, {
-      type: 'input',
-      name: 'repositoryUrl',
-      message: 'Enter the URL of your git repository',
-      when: hasGitRepo,
-      validate: function(answer) {
-        return answer.length < 1
-          ? 'You must provide a URL for your git repository.'
-          : true;
-      }
     }];
 
     if (!generator.dirname) {
@@ -100,16 +81,6 @@ function hasCustomEnvironments(answers) {
     }
   });
   return hasCustom;
-}
-
-/**
- *
- * @param answers {Object}
- * @returns {Boolean}
- * @private
- */
-function hasGitRepo(answers) {
-  return answers.initGit;
 }
 
 /**
