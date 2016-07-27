@@ -112,12 +112,12 @@ function hasGitRepo(answers) {
   return answers.initGit;
 }
 
- /**
-  *
-  * @param answers {Object}
-  * @returns {Boolean}
-  * @private
-  */
+/**
+ *
+ * @param answers {Object}
+ * @returns {Boolean}
+ * @private
+ */
 function getDefaultEnvSelect(answers) {
   return answers.environments;
 }
