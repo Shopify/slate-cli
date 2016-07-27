@@ -36,6 +36,7 @@ module.exports = {
       '!' + scaffold + '/docs/**',
       '!' + scaffold + '/package.json',
       '!' + scaffold + '/tasks/includes/config.js',
+      '!' + scaffold + '/.npmignore',
       '!' + scaffold + '/generators/**'
     ];
 
