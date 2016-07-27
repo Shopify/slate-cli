@@ -1,14 +1,27 @@
 var path = require('path');
 var slateRoot = path.resolve(__dirname, '../../..');
-var shopifySlatePath = path.join(slateRoot, '/node_modules/Slate');
+var msg = require('../../../includes/messages.js');
 
 module.exports = {
-  _getScaffoldPath: function() {
-    return shopifySlatePath;
+
+  /**
+   * Resolves the path to the node module.
+   *
+   * @param nodeModule {String} - The name of node module
+   * @returns {String} - The path to the node module
+   */
+  _getScaffoldPath: function(nodeModule) {
+    var nodeModulePath = path.join(slateRoot, '/node_modules/' + nodeModule);
+
+    if (!this.fs.exists(path.join(nodeModulePath, 'package.json'))) {
+      process.stdout.write(msg.unknownScaffold());
+    }
+
+    return nodeModulePath;
   },
 
   /**
-   * Uses node_modules to get scaffold and then writes it to the destination path
+   * Uses node_modules to get scaffold and then writes it to the destination path.
    *
    * @param scaffold {String} - npm install name
    * @param destination {String} - the local destination path to write scaffold
