@@ -45,6 +45,13 @@ module.exports = {
       }
     });
 
+    if (this.fs.exists(scaffold + '/.npmignore')) {
+      this.fs.copy(
+        path.join(scaffold, '/.npmignore'),
+        path.join(destination, '/.gitignore')
+      );
+    }
+
     this.fs.copyTpl(
       path.join(scaffold, '/generators/config.yml.ejs'),
       path.join(destination, '/config.yml'), {
