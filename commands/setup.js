@@ -1,11 +1,25 @@
 var msg = require('../includes/messages.js');
 var themekit = require('../includes/themekit.js');
 
-module.exports = function() {
-  setupThemeKit()
-    .then(function() {
-      process.stdout.write(msg.installerSuccess('slate-cli'));
-    });
+module.exports = {
+  help: function() {
+    var helpMessage = '\n' +
+      // how to use this command
+      '  Usage: setup\n\n' +
+      // description of what the command does
+      '  Installs framework dependencies\n\n' +
+      // options available on the command
+      '    themekit: installs ThemeKit' +
+      '\n\n';
+
+    process.stdout.write(helpMessage);
+  },
+  command: function() {
+    setupThemeKit()
+      .then(function() {
+        process.stdout.write(msg.installerSuccess('slate-cli'));
+      });
+  }
 };
 
 /**

@@ -11,14 +11,16 @@ var validOpts = {
   'version': Boolean,
   'manual': Boolean, // flag for manual deploy (used with deploy command)
   'environment': [null, String],
-  'nosync': Boolean
+  'nosync': Boolean,
+  'help': Boolean
 };
 
 var shorthand = {
   v: '--version',
   m: '--manual',
   e: '--environment',
-  ns: '--nosync'
+  ns: '--nosync',
+  h: '--help'
 };
 
 // filtered list of valid options that were passed w/ the command
@@ -27,8 +29,12 @@ if (opts.argv.remain[0]) {
   var command = opts.argv.remain[0]; // the first arg in the `remain` array is the command
   var args = opts.argv.remain.slice(1); // the remaining args to be passed with the command
 
-  if (_.isFunction(slate[command])) {
-    slate[command](args, opts);
+  if (_.isFunction(slate[command].command)) {
+    if (opts.help) {
+      slate[command].help();
+    } else {
+      slate[command].command(args, opts);
+    }
   } else {
     slate.help();
   }
