@@ -35,11 +35,6 @@ module.exports = {
       when: hasMultipleEnvironments,
       validate: requireEnv
     }, {
-      type: 'input',
-      name: 'repo',
-      message: 'Which scaffold would you like to start with?',
-      default: 'Slate'
-    }, {
       type: 'confirm',
       name: 'initGit',
       message: 'Will you be tracking this theme in git?'

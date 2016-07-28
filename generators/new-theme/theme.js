@@ -31,7 +31,6 @@ var mainGenerator = generators.Base.extend({
 
         this.environments = env;
         this.defaultEnv = answers.defaultEnv;
-        this.repo = answers.repo;
         this.initGit = answers.initGit;
         this.repositoryUrl = answers.repositoryUrl;
 
@@ -49,7 +48,7 @@ var mainGenerator = generators.Base.extend({
   },
 
   writing: function() {
-    this._copyScaffold(this._getScaffoldPath(this.repo), this.destinationPath());
+    this._copyScaffold(this._getScaffoldPath('Slate'), this.destinationPath());
 
     if (this.initGit) {
       var options = {
