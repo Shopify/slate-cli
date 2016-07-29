@@ -1,18 +1,19 @@
 var msg = require('../includes/messages.js');
+var utils = require('../includes/utils.js');
 var themekit = require('../includes/themekit.js');
 
 module.exports = {
   help: function() {
-    var helpMessage = '\n' +
+    utils.logHelpMsg([
       // how to use this command
-      '  Usage: setup\n\n' +
+      '  Usage: setup',
+      '  ',
       // description of what the command does
-      '  Installs framework dependencies\n\n' +
+      '  Installs framework dependencies',
+      '  ',
       // options available on the command
-      '    themekit: installs ThemeKit' +
-      '\n\n';
-
-    process.stdout.write(helpMessage);
+      '    themekit: installs ThemeKit',
+    ]);
   },
   command: function() {
     setupThemeKit()
