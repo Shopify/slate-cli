@@ -2,9 +2,6 @@ var findRoot = require('find-root');
 var utils = require('../../includes/utils.js');
 
 module.exports = {
-  help: function() {
-    process.stdout.write('placeholder for slate help command...\n');
-  },
   command: function(args, options) {
     var themeRoot = findRoot(process.cwd());
 
@@ -19,5 +16,17 @@ module.exports = {
       : ['deploy'];
 
     utils.runScript(themeRoot, scriptArgs);
+  },
+  help: function() {
+    utils.logHelpMsg([
+      '  Usage: slate deploy [--options]',
+      '  ',
+      '  Build theme and replace theme files on specified environment (default: development).',
+      '  ',
+      '  Options:',
+      '  ',
+      '    -e, --environment  deploy to a comma-separated list of environments',
+      '    -m, --manual       disable auto-deployment of the theme files'
+    ]);
   }
 };

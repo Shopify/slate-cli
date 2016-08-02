@@ -9,6 +9,10 @@ module.exports = {
     return 'No files provided\n';
   },
 
+  unknownCommand: function() {
+    return 'Unknown generator, please refer to help. \n';
+  },
+
   missingDependencies: function() {
     return 'Dependencies missing. Please run slate setup\n';
   },

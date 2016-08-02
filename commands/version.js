@@ -1,10 +1,15 @@
 var msg = require('../includes/messages.js');
+var utils = require('../includes/utils.js');
 
 module.exports = {
-  help: function() {
-    process.stdout.write('placeholder for slate help command...\n');
-  },
   command: function() {
     process.stdout.write(msg.versionInfo());
+  },
+  help: function() {
+    utils.logHelpMsg([
+      '  Usage: slate version',
+      '  ',
+      '  Output the current version of Slate CLI installed on your system.'
+    ]);
   }
 };

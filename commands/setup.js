@@ -9,10 +9,7 @@ module.exports = {
       '  Usage: setup',
       '  ',
       // description of what the command does
-      '  Installs framework dependencies',
-      '  ',
-      // options available on the command
-      '    themekit: installs ThemeKit',
+      '  Install framework dependencies.'
     ]);
   },
   command: function() {

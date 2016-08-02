@@ -7,9 +7,6 @@ var slateRoot = path.resolve(__dirname, '..');
 var destRoot = process.cwd();
 
 module.exports = {
-  help: function() {
-    process.stdout.write('placeholder for slate help command...\n');
-  },
   command: function(args/*, options*/) {
     if (args.length === 0) {
       process.stdout.write(msg.noGenerator());
@@ -39,5 +36,17 @@ module.exports = {
         process.stdout.write(msg.unknownGenerator());
       }
     }
+  },
+  help: function() {
+    utils.logHelpMsg([
+      '  Usage: slate new [args] [--options]',
+      '  ',
+      '  Scaffold a theme or section.',
+      '  ',
+      '  Arguments:',
+      '  ',
+      '    theme    generate a section folder',
+      '    section  generate a theme with build tools'
+    ]);
   }
 };
