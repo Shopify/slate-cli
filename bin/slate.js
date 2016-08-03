@@ -30,26 +30,22 @@ if (opts.argv.remain[0]) {
   var command = opts.argv.remain[0]; // the first arg in the `remain` array is the command
   var args = opts.argv.remain.slice(1); // the remaining args to be passed with the command
 
-  try {
-    if (_.isFunction(slate[command].command)) {
-      if (opts.help) {
-        slate[command].help();
-      } else {
-        slate[command].command(args, opts);
-      }
+  if (_.has(slate, command) && _.isFunction(slate[command].command)) {
+    if (opts.help) {
+      slate[command].help();
     } else {
-      slate.help();
+      slate[command].command(args, opts);
     }
-  } catch (e) {
+  } else {
     process.stdout.write(msg.unknownCommand());
-    slate.help();
+    slate.help.command();
   }
-  
+
   // No args were passed...
 } else {
   if (opts.version) {
     slate.version.command();
   } else {
-    slate.help();
+    slate.help.command();
   }
 }
