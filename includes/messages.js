@@ -10,7 +10,7 @@ module.exports = {
   },
 
   unknownCommand: function() {
-    return 'Unknown generator, please refer to help. \n';
+    return 'Unknown command, please refer to help. \n';
   },
 
   missingDependencies: function() {

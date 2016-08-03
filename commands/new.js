@@ -45,8 +45,8 @@ module.exports = {
       '  ',
       '  Arguments:',
       '  ',
-      '    theme    generate a section folder',
-      '    section  generate a theme with build tools'
+      '    theme    generate a theme with build tools',
+      '    section  generate a section folder'
     ]);
   }
 };

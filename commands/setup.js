@@ -3,20 +3,18 @@ var utils = require('../includes/utils.js');
 var themekit = require('../includes/themekit.js');
 
 module.exports = {
-  help: function() {
-    utils.logHelpMsg([
-      // how to use this command
-      '  Usage: setup',
-      '  ',
-      // description of what the command does
-      '  Install framework dependencies.'
-    ]);
-  },
   command: function() {
     setupThemeKit()
       .then(function() {
         process.stdout.write(msg.installerSuccess('slate-cli'));
       });
+  },
+  help: function() {
+    utils.logHelpMsg([
+      '  Usage: setup',
+      '  ',
+      '  Install framework dependencies.'
+    ]);
   }
 };
 
