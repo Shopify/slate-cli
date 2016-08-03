@@ -9,9 +9,9 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate start',
-      '  ',
-      '  Deploy theme, launch Browsersync in a new browser tab at http://localhost:3000 and watch for file changes.'
+      'Usage: slate start',
+      '',
+      'Deploy theme, launch Browsersync in a new browser tab at http://localhost:3000 and watch for file changes.'
     ]);
   }
 };

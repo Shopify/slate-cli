@@ -8,9 +8,9 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate build',
-      '  ',
-      '  Compile theme files and assets into a Shopify theme.'
+      'Usage: slate build',
+      '',
+      'Compile theme files and assets into a Shopify theme.'
     ]);
   }
 };

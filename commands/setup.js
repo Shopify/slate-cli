@@ -11,9 +11,9 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: setup',
-      '  ',
-      '  Install framework dependencies.'
+      'Usage: setup',
+      '',
+      'Install framework dependencies.'
     ]);
   }
 };

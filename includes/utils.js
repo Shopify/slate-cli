@@ -2,7 +2,7 @@ var npm = require('global-npm');
 
 module.exports = {
   logHelpMsg: function(messageArray) {
-    messageArray.unshift(' ');
+    messageArray.unshift('');
     messageArray.push('\n');
 
     process.stdout.write(messageArray.join('\n'));

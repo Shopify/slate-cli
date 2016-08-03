@@ -11,13 +11,13 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate watch [--options]',
-      '  ',
-      '  Launch Browsersync in a new browser tab at http://localhost:3000 and watch for file changes.',
-      '  ',
-      '  Options:',
-      '  ',
-      '    -ns, --nosync        disable Browsersync from launching'
+      'Usage: slate watch [--options]',
+      '',
+      'Launch Browsersync in a new browser tab at http://localhost:3000 and watch for file changes.',
+      '',
+      'Options:',
+      '',
+      '  -ns, --nosync        disable Browsersync from launching'
     ]);
   }
 };

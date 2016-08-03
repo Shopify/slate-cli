@@ -8,11 +8,11 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate zip',
-      '  ',
-      '  Build theme and zip compiled files.',
-      '  ',
-      '  The zip file can be found within an upload folder that is generated within your theme project root folder.'
+      'Usage: slate zip',
+      '',
+      'Build theme and zip compiled files.',
+      '',
+      'The zip file can be found within an upload folder that is generated within your theme project root folder.'
     ]);
   }
 };

@@ -8,9 +8,9 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate test',
-      '  ',
-      '  Test and lint theme JavaScript, CSS and JSON.'
+      'Usage: slate test',
+      '',
+      'Test and lint theme JavaScript, CSS and JSON.'
     ]);
   }
 };

@@ -39,14 +39,14 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate new [args] [--options]',
-      '  ',
-      '  Scaffold a theme or section.',
-      '  ',
-      '  Arguments:',
-      '  ',
-      '    theme    generate a theme with build tools',
-      '    section  generate a section folder'
+      'Usage: slate new [args] [--options]',
+      '',
+      'Scaffold a theme or section.',
+      '',
+      'Arguments:',
+      '',
+      '  theme    generate a theme with build tools',
+      '  section  generate a section folder'
     ]);
   }
 };

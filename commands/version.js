@@ -7,9 +7,9 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate version',
-      '  ',
-      '  Output the current version of Slate CLI installed on your system.'
+      'Usage: slate version',
+      '',
+      'Output the current version of Slate CLI installed on your system.'
     ]);
   }
 };

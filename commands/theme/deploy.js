@@ -19,14 +19,14 @@ module.exports = {
   },
   help: function() {
     utils.logHelpMsg([
-      '  Usage: slate deploy [--options]',
-      '  ',
-      '  Build theme and replace theme files on specified environment.',
-      '  ',
-      '  Options:',
-      '  ',
-      '    -e, --environment  deploy to a comma-separated list of environments',
-      '    -m, --manual       disable auto-deployment of the theme files'
+      'Usage: slate deploy [--options]',
+      '',
+      'Build theme and replace theme files on specified environment.',
+      '',
+      'Options:',
+      '',
+      '  -e, --environment  deploy to a comma-separated list of environments',
+      '  -m, --manual       disable auto-deployment of the theme files'
     ]);
   }
 };
