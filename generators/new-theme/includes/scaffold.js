@@ -35,7 +35,8 @@ module.exports = {
       '!' + scaffold + '/jsdoc-conf.json',
       '!' + scaffold + '/docs/**',
       '!' + scaffold + '/package.json',
-      '!' + scaffold + '/.npmignore'
+      '!' + scaffold + '/.npmignore',
+      '!' + scaffold + '/**/*.ejs'
     ];
 
     this.fs.copy(glob, destination, {
