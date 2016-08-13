@@ -7,7 +7,7 @@ to run commands to generate, set up, and deploy Shopify themes.
 #### 1. Get the latest version
 Clone the latest version of Slate CLI to your local machine by running:
 ```shell
-git clone https://github.com/Shopify/slate-cli
+git clone git@github.com:Shopify/slate-cli.git
 cd slate-cli
 ```
 
