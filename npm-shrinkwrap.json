@@ -2611,8 +2611,8 @@
     },
     "Slate": {
       "version": "1.0.0",
-      "from": "git+ssh://git@github.com/shopify/slate.git#8d6287c3356bacc70b0350459f1f622f31c9be65",
-      "resolved": "git+ssh://git@github.com/shopify/slate.git#8d6287c3356bacc70b0350459f1f622f31c9be65"
+      "from": "git+ssh://git@github.com/shopify/slate.git#c8b8d597c58b85b6472cf5faac213f09f3d806c2",
+      "resolved": "git+ssh://git@github.com/shopify/slate.git#c8b8d597c58b85b6472cf5faac213f09f3d806c2"
     },
     "slice-ansi": {
       "version": "0.0.4",
