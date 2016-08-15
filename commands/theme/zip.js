@@ -2,7 +2,7 @@ var findRoot = require('find-root');
 var utils = require('../../includes/utils.js');
 
 module.exports = {
-  command: function() {
+  command: function(args, options) {
     var themeRoot = findRoot(process.cwd());
     utils.runScript(themeRoot, ['zip']);
   },
