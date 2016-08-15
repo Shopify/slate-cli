@@ -22,7 +22,7 @@ var shorthand = {
   e: '--environment',
   h: '--help',
   m: '--manual',
-  ns: '--nosync',
+  n: '--nosync',
   v: '--version'
 };
 

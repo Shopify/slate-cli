@@ -29,7 +29,7 @@ module.exports = {
       '',
       '  -a, --active       overwrite active theme if theme_id is invalid',
       '  -e, --environment  deploy to a specific environment',
-      '  -ns, --nosync      disable Browsersync from launching'
+      '  -n, --nosync       disable Browsersync from launching'
     ]);
   }
 };
