@@ -4,9 +4,19 @@ var utils = require('../../includes/utils.js');
 module.exports = {
   command: function(args, options) {
     var themeRoot = findRoot(process.cwd());
+    
+    if (options.environment) {
+      process.env.tkEnvironments = options.environment; // eslint-disable-line no-process-env
+    }
+
+    if (options.active) {
+      process.env.activeTheme = options.active; // eslint-disable-line no-process-env
+    }
+    
     var scriptArgs = options.nosync
       ? ['watch-nosync']
       : ['watch'];
+      
     utils.runScript(themeRoot, scriptArgs);
   },
   help: function() {
@@ -17,7 +27,8 @@ module.exports = {
       '',
       'Options:',
       '',
-      '  -ns, --nosync        disable Browsersync from launching'
+      '  -e, --environment  deploy to a specific environment',
+      '  -ns, --nosync      disable Browsersync from launching'
     ]);
   }
 };
