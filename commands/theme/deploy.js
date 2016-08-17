@@ -23,7 +23,7 @@ module.exports = {
     utils.logHelpMsg([
       'Usage: slate deploy [--options]',
       '',
-      'Build theme and replace theme files on specified environment.',
+      'Build theme and replace theme files on specified environment(s).',
       '',
       'Options:',
       '',
