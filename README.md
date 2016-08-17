@@ -7,7 +7,7 @@ Slate CLI is a command line tool for theme development that allows you to run co
 Clone the latest version of Slate CLI to your local machine by running:
 
 ```shell
-git clone https://github.com/Shopify/slate-cli
+git clone git@github.com:Shopify/slate-cli.git
 cd slate-cli
 ```
 
