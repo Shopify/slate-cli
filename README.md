@@ -164,7 +164,7 @@ Running `slate deploy --manual` will instead create a new zip file of your theme
 slate start [--options]
 ```
 
-Performs a full deploy of your theme (see [slate deploy](#deploy)), launches [Browsersync](https://browsersync.io/) in a new browser tab at [https://localhost:3000](https://localhost:3000) and watches for any file changes.
+Performs a full deploy of your theme (see [slate deploy](#deploy)), launches [Browsersync](https://browsersync.io/) in a new browser tab at [https://localhost:3000](https://localhost:3000) and watches for any file changes. Browersync will livereload the localhost as files are changed.
 
 ##### options
 ```
