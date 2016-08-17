@@ -53,6 +53,8 @@ These settings include the theme ID, password, and store URL.
   
   ![https://screenshot.click/17-04-mng8o-k9da8.png](https://screenshot.click/17-04-mng8o-k9da8.png)
   
+  Note: if `theme_id` is set to "live", it will update the published theme.
+  
 - **password**
 
   Navigate to your store's private apps.
@@ -151,11 +153,8 @@ Performs a fresh build followed by a full deploy; replacing existing files on th
 
 Running `slate deploy --manual` will instead create a new zip file of your theme (see [slate zip](#zip)) and open the admin themes page as defined by your environment where you can then manually install your theme from the zip file.
 
-Passing the `--active` option will overwrite the active theme assuming the theme ID is empty (or is not an integer) in `config.yml`.
-
 ##### options
 ```
--a, --active       overwrite active theme if theme_id is invalid
 -e, --environment  deploy to a comma-separated list of environments
 -m, --manual       disable auto-deployment of the theme files
 ```
@@ -165,11 +164,10 @@ Passing the `--active` option will overwrite the active theme assuming the theme
 slate start [--options]
 ```
 
-Performs a full deploy of your theme (see [slate deploy](#deploy)), launches Browsersync in a new browser tab at [https://localhost:3000](https://localhost:3000) and watches for any file changes.
+Performs a full deploy of your theme (see [slate deploy](#deploy)), launches [Browsersync](https://browsersync.io/) in a new browser tab at [https://localhost:3000](https://localhost:3000) and watches for any file changes.
 
 ##### options
 ```
--a, --active       overwrite active theme if theme_id is invalid
 -e, --environment  deploy to a comma-separated list of environments
 -n, --nosync       watch for changes without using Browsersync
 ```
@@ -189,13 +187,10 @@ slate watch [--options]
 
 Sets up the watchers for all theme assets.
 
-By default, Browsersync will launch a new browser tab at [https://localhost:3000](https://localhost:3000) and watch for any files changes. You can ignore this by passing the `--nosync` option to the command.
-
-**Warning: running `watch` by itself will override your active theme if you do not have a `theme_id` in your config.yml. Run `slate start` to avoid this.**
+By default, [Browsersync](https://browsersync.io/) will launch a new browser tab at [https://localhost:3000](https://localhost:3000) and watch for any files changes. You can ignore this by passing the `--nosync` option to the command.
 
 ##### options
 ```
--a, --active       overwrite active theme if theme_id is invalid
 -e, --environment  deploy to a specific environment
 -n, --nosync       watch for changes without using Browsersync
 ```
