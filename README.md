@@ -11,7 +11,7 @@ git clone https://github.com/Shopify/slate-cli
 cd slate-cli
 ```
 
-or with ssh ([guide on setting up ssh here](https://help.github.com/articles/generating-an-ssh-key/))
+or with SSH ([guide on setting up ssh here](https://help.github.com/articles/generating-an-ssh-key/))
 
 ```shell
 git clone git@github.com:Shopify/slate-cli.git
@@ -63,7 +63,7 @@ These settings include the theme ID, password, and store URL.
   
   ![https://screenshot.click/17-07-u19kf-rx53b.png](https://screenshot.click/17-07-u19kf-rx53b.png)
   
-  Assign the private app permissions to read/write theme templates and theme assets.
+  Assign the private app permissions to "Read and Write" for theme templates and theme assets.
   
   ![https://screenshot.click/17-09-owv1p-5lugl.png](https://screenshot.click/17-09-owv1p-5lugl.png)
 
