@@ -38,7 +38,7 @@ module.exports = {
    */
   install: function() {
     var exists = true;
-    
+
     return stat(this.path())
       .catch(function(err) {
         if (err.code === 'ENOENT') {
@@ -67,7 +67,7 @@ module.exports = {
             }
           });
         });
-      }.bind(this));
+      });
   },
 
   test: function() {
