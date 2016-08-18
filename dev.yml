@@ -1,0 +1,14 @@
+name: slate-cli
+
+up:
+  - node:
+      version: v5.7.0
+  - custom:
+      name: "npm Link"
+      met?: command -v slate >/dev/null 2>&1
+      meet: npm link
+  - custom:
+      name: "Slate Setup"
+      met?: "[ -f bin/theme ]"
+      meet: slate setup
+  
