@@ -27,11 +27,15 @@ module.exports = {
  */
 function setupThemeKit() {
   return themekit
-    .install()
+    .getLatestRelease()
+    .then(function(release) {
+      return themekit.install(release);
+    })
     .then(function() {
       process.stdout.write(msg.installerPath('ThemeKit', themekit.path()));
     })
     .catch(function(error) {
-      process.sterr.write(msg.installerFailed('ThemeKit', error));
+      process.stderr.write(msg.installerFailed('ThemeKit', error));
+      process.exit(5);
     });
 }
