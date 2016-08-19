@@ -32,11 +32,6 @@
       "from": "ansi@>=0.3.1 <0.4.0",
       "resolved": "https://registry.npmjs.org/ansi/-/ansi-0.3.1.tgz"
     },
-    "ansi-align": {
-      "version": "1.1.0",
-      "from": "ansi-align@>=1.0.0 <2.0.0",
-      "resolved": "https://registry.npmjs.org/ansi-align/-/ansi-align-1.1.0.tgz"
-    },
     "ansi-escapes": {
       "version": "1.4.0",
       "from": "ansi-escapes@>=1.1.0 <2.0.0",
@@ -253,11 +248,6 @@
       "from": "boom@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/boom/-/boom-2.10.1.tgz"
     },
-    "boxen": {
-      "version": "0.5.1",
-      "from": "boxen@>=0.5.1 <0.6.0",
-      "resolved": "https://registry.npmjs.org/boxen/-/boxen-0.5.1.tgz"
-    },
     "brace-expansion": {
       "version": "1.1.6",
       "from": "brace-expansion@>=1.0.0 <2.0.0",
@@ -460,11 +450,6 @@
       "version": "1.1.10",
       "from": "config-chain@>=1.1.8 <1.2.0",
       "resolved": "https://registry.npmjs.org/config-chain/-/config-chain-1.1.10.tgz"
-    },
-    "configstore": {
-      "version": "2.0.0",
-      "from": "configstore@>=2.0.0 <3.0.0",
-      "resolved": "https://registry.npmjs.org/configstore/-/configstore-2.0.0.tgz"
     },
     "contains-path": {
       "version": "0.1.0",
@@ -2986,11 +2971,6 @@
       "version": "1.0.0",
       "from": "unzip-response@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/unzip-response/-/unzip-response-1.0.0.tgz"
-    },
-    "update-notifier": {
-      "version": "0.7.0",
-      "from": "update-notifier@0.7.0",
-      "resolved": "https://registry.npmjs.org/update-notifier/-/update-notifier-0.7.0.tgz"
     },
     "url-parse-lax": {
       "version": "1.0.0",
