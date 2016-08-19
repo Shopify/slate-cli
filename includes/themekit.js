@@ -11,7 +11,6 @@ var slateRoot = path.resolve(__dirname, '..');
 var themeKitBin = {};
 var themeKitRepo = 'https://github.com/Shopify/themekit';
 
-
 /**
  * @module ThemeKit
  *
