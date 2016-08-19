@@ -42,6 +42,8 @@ var themeKit = {
       })
       .then(function(bin) {
         return new Promise(function(resolve, reject) {
+          process.stdout.write(msg.fetchingDependencies());
+
           bin.run(['version'], function(err) {
             if (err) {
               reject(err);
