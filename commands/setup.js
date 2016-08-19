@@ -26,16 +26,12 @@ module.exports = {
  * @private
  */
 function setupThemeKit() {
-  return themekit
-    .getLatestRelease()
-    .then(function(release) {
-      return themekit.install(release);
-    })
-    .then(function() {
-      process.stdout.write(msg.installerPath('ThemeKit', themekit.path()));
+  return themekit.install()
+    .then(function(binPath) {
+      process.stdout.write(msg.installerPath('ThemeKit', binPath));
     })
     .catch(function(error) {
       process.stderr.write(msg.installerFailed('ThemeKit', error));
-      process.exit(5);
+      process.exit(5); // eslint-disable-line no-process-exit
     });
 }
