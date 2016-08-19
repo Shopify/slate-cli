@@ -5,10 +5,12 @@ var path = require('path');
 var _ = require('lodash');
 var FeedParser = require('feedparser');
 var request = require('request');
+var msg = require('./messages.js');
 var BinWrapper = require('bin-wrapper');
 var spawn = require('child_process').spawn;
 var slateRoot = path.resolve(__dirname, '..');
 var themeKitBin = {};
+var themeKitPath = '';
 var themeKitRepo = 'https://github.com/Shopify/themekit';
 
 /**
@@ -24,14 +26,11 @@ var themeKit = {
    * @returns {Promise:String} - The ThemeKit installation
    */
   install: function() {
-    var binPath = '';
-
     return test()
       .then(function(exists) {
         if (exists) {
           return getPath()
-            .then(function(res) {
-              binPath = res;
+            .then(function(binPath) {
               return unlink(binPath);
             });
         } else {
@@ -47,7 +46,7 @@ var themeKit = {
             if (err) {
               reject(err);
             } else {
-              resolve(binPath);
+              resolve(getPath());
             }
           });
         });
@@ -64,32 +63,43 @@ var themeKit = {
    */
   commands: function(args) {
     var error = '';
-    var childProcess = spawn(getPath(), args);
 
-    return new Promise(function(resolve, reject) {
-      childProcess.stdout.setEncoding('utf8');
-      childProcess.stdout.on('data', function(data) {
-        process.stdout.write(data);
-      });
-
-      childProcess.stderr.on('data', function(data) {
-        process.stdout.write(data);
-        error += data;
-      });
-
-      childProcess.on('error', function(err) {
-        process.stdout.write(err);
-        reject(err);
-      });
-
-      childProcess.on('close', function() {
-        if (error) {
-          reject(new Error(error));
+    return test()
+      .then(function(exists) {
+        if (exists) {
+          return getPath();
         } else {
-          resolve();
+          throw new Error(msg.missingDependencies());
         }
+      })
+      .then(function(binPath) {
+        var childProcess = spawn(binPath, args);
+
+        return new Promise(function(resolve, reject) {
+          childProcess.stdout.setEncoding('utf8');
+          childProcess.stdout.on('data', function(data) {
+            process.stdout.write(data);
+          });
+
+          childProcess.stderr.on('data', function(data) {
+            process.stdout.write(data);
+            error += data;
+          });
+
+          childProcess.on('error', function(err) {
+            process.stdout.write(err);
+            reject(err);
+          });
+
+          childProcess.on('close', function() {
+            if (error) {
+              reject(new Error(error));
+            } else {
+              resolve();
+            }
+          });
+        });
       });
-    });
   }
 };
 
@@ -143,10 +153,15 @@ function get() {
  * @private
  */
 function getPath() {
-  return get()
-    .then(function(bin) {
-      return bin.path();
-    });
+  if (themeKitPath) {
+    return Promise.resolve(themeKitPath);
+  } else {
+    return get()
+      .then(function(bin) {
+        themeKitPath = bin.path();
+        return themeKitPath;
+      });
+  }
 }
 
 /**
