@@ -229,7 +229,7 @@ function getLatestRelease() {
 /**
  * Tests if ThemeKit binary exists.
  *
- * @returns {Boolean} - If ThemeKit exists
+ * @returns {Promise:Boolean} - If ThemeKit exists
  *
  * @private
  */
