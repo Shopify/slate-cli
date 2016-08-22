@@ -28,14 +28,14 @@ var themeKit = {
   install: function() {
     return test()
       .then(function(exists) {
-        if (exists) {
-          return getPath()
-            .then(function(binPath) {
-              return unlink(binPath);
-            });
-        } else {
-          return Promise.resolve(exists);
+        if (!exists) {
+          return Promise.resolve();
         }
+
+        return getPath()
+          .then(function(binPath) {
+            return unlink(binPath);
+          });
       })
       .then(function() {
         return get();
@@ -157,13 +157,13 @@ function get() {
 function getPath() {
   if (themeKitPath) {
     return Promise.resolve(themeKitPath);
-  } else {
-    return get()
-      .then(function(bin) {
-        themeKitPath = bin.path();
-        return themeKitPath;
-      });
   }
+
+  return get()
+    .then(function(bin) {
+      themeKitPath = bin.path();
+      return themeKitPath;
+    });
 }
 
 /**
