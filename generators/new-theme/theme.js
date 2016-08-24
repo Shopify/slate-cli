@@ -31,8 +31,6 @@ var mainGenerator = generators.Base.extend({
 
         this.environments = env;
         this.defaultEnv = answers.defaultEnv || 'development';
-        this.initGit = answers.initGit;
-        this.repositoryUrl = answers.repositoryUrl;
 
         if (answers.dirname) {
           this.dirname = answers.dirname;
@@ -49,15 +47,6 @@ var mainGenerator = generators.Base.extend({
 
   writing: function() {
     this._copyScaffold(this._getScaffoldPath('Slate'), this.destinationPath());
-
-    if (this.initGit) {
-      var options = {
-        cwd: this.destinationPath()
-      };
-
-      this.spawnCommandSync('git', ['init'], options); // eslint-disable-line no-sync
-      this.spawnCommandSync('git', ['remote', 'add', 'origin', this.repositoryUrl], options); // eslint-disable-line no-sync
-    }
   },
 
   install: function() {
