@@ -1,11 +1,11 @@
-var themekit = require('../includes/themekit.js');
+var commands = require('node-themekit').commands;
 
 module.exports = {
   command: function(args, options) {
     if (options.environment) {
-      return themekit.commands(['replace', '-env', options.environment].concat(args));
+      return commands(['replace', '-env', options.environment].concat(args));
     } else {
-      return themekit.commands(['replace'].concat(args));
+      return commands(['replace'].concat(args));
     }
   }
 };

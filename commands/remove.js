@@ -1,5 +1,5 @@
 var msg = require('../includes/messages.js');
-var themekit = require('../includes/themekit.js');
+var commands = require('node-themekit').commands;
 
 module.exports = {
   command: function(args, options) {
@@ -7,9 +7,9 @@ module.exports = {
       return process.stdout.write(msg.noFiles());
     } else {
       if (options.environment) {
-        return themekit.commands(['remove', '-env', options.environment].concat(args));
+        return commands(['remove', '-env', options.environment].concat(args));
       } else {
-        return themekit.commands(['remove'].concat(args));
+        return commands(['remove'].concat(args));
       }
     }
   }

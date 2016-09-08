@@ -1,6 +1,6 @@
 var msg = require('../includes/messages.js');
 var utils = require('../includes/utils.js');
-var themekit = require('../includes/themekit.js');
+var install = require('node-themekit').install;
 
 module.exports = {
   command: function() {
@@ -26,7 +26,7 @@ module.exports = {
  * @private
  */
 function setupThemeKit() {
-  return themekit.install()
+  return install()
     .then(function(binPath) {
       process.stdout.write(msg.installerPath('ThemeKit', binPath));
     })
