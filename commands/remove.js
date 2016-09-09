@@ -1,5 +1,6 @@
+var Promise = require('bluebird');
 var msg = require('../includes/messages.js');
-var commands = require('node-themekit').commands;
+var command = Promise.promisify(require('node-themekit').command);
 
 module.exports = {
   command: function(args, options) {
@@ -7,9 +8,9 @@ module.exports = {
       return process.stdout.write(msg.noFiles());
     } else {
       if (options.environment) {
-        return commands(['remove', '-env', options.environment].concat(args));
+        return command({args: ['remove', '-env', options.environment].concat(args)});
       } else {
-        return commands(['remove'].concat(args));
+        return command({args: ['remove'].concat(args)});
       }
     }
   }

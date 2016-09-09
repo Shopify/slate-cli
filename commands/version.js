@@ -1,10 +1,11 @@
+var Promise = require('bluebird');
 var msg = require('../includes/messages.js');
 var utils = require('../includes/utils.js');
-var commands = require('node-themekit').commands;
+var command = Promise.promisify(require('node-themekit').command);
 
 module.exports = {
   command: function() {
-    return commands(['version'])
+    return command({args: ['version']})
       .then(function() {
         process.stdout.write(msg.versionInfo());
       });

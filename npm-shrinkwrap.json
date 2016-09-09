@@ -737,7 +737,7 @@
     },
     "dot-prop": {
       "version": "2.4.0",
-      "from": "dot-prop@>=2.3.0 <3.0.0",
+      "from": "dot-prop@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/dot-prop/-/dot-prop-2.4.0.tgz"
     },
     "downgrade-root": {
@@ -1271,7 +1271,7 @@
       "dependencies": {
         "lodash": {
           "version": "3.10.1",
-          "from": "lodash@>=3.10.1 <4.0.0",
+          "from": "lodash@^3.10.1",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
         }
       }
@@ -1471,7 +1471,7 @@
       "dependencies": {
         "cli-width": {
           "version": "1.1.1",
-          "from": "cli-width@>=1.0.1 <2.0.0",
+          "from": "cli-width@^1.0.1",
           "resolved": "https://registry.npmjs.org/cli-width/-/cli-width-1.1.1.tgz"
         },
         "configstore": {
@@ -1486,7 +1486,7 @@
         },
         "lodash": {
           "version": "3.10.1",
-          "from": "lodash@>=3.3.1 <4.0.0",
+          "from": "lodash@^3.3.1",
           "resolved": "https://registry.npmjs.org/lodash/-/lodash-3.10.1.tgz"
         },
         "run-async": {
@@ -2000,7 +2000,7 @@
     },
     "lru-cache": {
       "version": "4.0.1",
-      "from": "lru-cache@>=4.0.0 <5.0.0",
+      "from": "lru-cache@>=4.0.1 <5.0.0",
       "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-4.0.1.tgz"
     },
     "map-obj": {
@@ -2141,6 +2141,23 @@
       "from": "node-status-codes@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/node-status-codes/-/node-status-codes-1.0.0.tgz"
     },
+    "node-themekit": {
+      "version": "0.4.1",
+      "from": "../node-themekit",
+      "resolved": "file:../node-themekit",
+      "dependencies": {
+        "async": {
+          "version": "2.0.1",
+          "from": "async@2.0.1",
+          "resolved": "https://registry.npmjs.org/async/-/async-2.0.1.tgz"
+        },
+        "bluebird": {
+          "version": "3.4.6",
+          "from": "bluebird@3.4.6",
+          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.6.tgz"
+        }
+      }
+    },
     "node-uuid": {
       "version": "1.4.7",
       "from": "node-uuid@>=1.4.7 <1.5.0",
@@ -2148,7 +2165,7 @@
     },
     "nopt": {
       "version": "3.0.6",
-      "from": "nopt@3.0.6",
+      "from": "nopt@>=3.0.1 <3.1.0",
       "resolved": "https://registry.npmjs.org/nopt/-/nopt-3.0.6.tgz"
     },
     "normalize-package-data": {
@@ -3169,7 +3186,7 @@
     },
     "yeoman-environment": {
       "version": "1.6.3",
-      "from": "yeoman-environment@>=1.1.0 <2.0.0",
+      "from": "yeoman-environment@>=1.6.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/yeoman-environment/-/yeoman-environment-1.6.3.tgz"
     },
     "yeoman-generator": {
