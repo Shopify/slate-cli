@@ -2141,23 +2141,6 @@
       "from": "node-status-codes@>=1.0.0 <2.0.0",
       "resolved": "https://registry.npmjs.org/node-status-codes/-/node-status-codes-1.0.0.tgz"
     },
-    "node-themekit": {
-      "version": "0.4.1",
-      "from": "../node-themekit",
-      "resolved": "file:../node-themekit",
-      "dependencies": {
-        "async": {
-          "version": "2.0.1",
-          "from": "async@2.0.1",
-          "resolved": "https://registry.npmjs.org/async/-/async-2.0.1.tgz"
-        },
-        "bluebird": {
-          "version": "3.4.6",
-          "from": "bluebird@3.4.6",
-          "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.6.tgz"
-        }
-      }
-    },
     "node-uuid": {
       "version": "1.4.7",
       "from": "node-uuid@>=1.4.7 <1.5.0",
@@ -2625,6 +2608,11 @@
           "resolved": "https://registry.npmjs.org/glob/-/glob-7.0.5.tgz"
         }
       }
+    },
+    "shopify-themekit": {
+      "version": "0.4.2",
+      "from": "../node-themekit",
+      "resolved": "file:../node-themekit"
     },
     "signal-exit": {
       "version": "3.0.0",

@@ -29,10 +29,10 @@
     "find-root": "1.0.0",
     "global-npm": "0.3.0",
     "lodash": "4.13.1",
-    "node-themekit": "file:///Users/ryanmacdonald/Shopify/node-themekit",
     "nopt": "3.0.6",
     "open": "0.0.5",
     "request": "2.74.0",
+    "shopify-themekit": "file:///Users/ryanmacdonald/Shopify/node-themekit",
     "yeoman-generator": "0.23.3",
     "yo": "1.8.4"
   },
