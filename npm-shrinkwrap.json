@@ -2610,7 +2610,7 @@
       }
     },
     "shopify-themekit": {
-      "version": "0.4.2",
+      "version": "0.4.3",
       "from": "../node-themekit",
       "resolved": "file:../node-themekit"
     },
