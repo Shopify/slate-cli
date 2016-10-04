@@ -2611,8 +2611,8 @@
     },
     "shopify-themekit": {
       "version": "0.4.3",
-      "from": "../node-themekit",
-      "resolved": "file:../node-themekit"
+      "from": "git+ssh://git@github.com/shopify/node-themekit.git#397de391f7646cc1cb6f0263a430851faa911573",
+      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#397de391f7646cc1cb6f0263a430851faa911573"
     },
     "signal-exit": {
       "version": "3.0.0",
