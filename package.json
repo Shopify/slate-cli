@@ -22,7 +22,7 @@
     "generate-section": "yo --no-insight --no-update-notifier ./generators/new-section/section.js"
   },
   "dependencies": {
-    "@shopify/themekit": "github:shopify/node-themekit",
+    "@shopify/themekit": "0.4.3",
     "Slate": "git+ssh://git@github.com/shopify/slate.git#e1ab032b596ddfb5e7722efb6a9792eb1bce5adf",
     "bin-wrapper": "3.0.2",
     "bluebird": "3.4.6",

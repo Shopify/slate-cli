@@ -4,8 +4,8 @@
   "dependencies": {
     "@shopify/themekit": {
       "version": "0.4.3",
-      "from": "git+ssh://git@github.com/shopify/node-themekit.git#a74c14ffcb44877980e9633c74b1425ff0d895e6",
-      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#a74c14ffcb44877980e9633c74b1425ff0d895e6"
+      "from": "@shopify/themekit@latest",
+      "resolved": "https://registry.npmjs.org/@shopify/themekit/-/themekit-0.4.3.tgz"
     },
     "abbrev": {
       "version": "1.0.9",
