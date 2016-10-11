@@ -4,8 +4,8 @@
   "dependencies": {
     "@shopify/themekit": {
       "version": "0.4.3",
-      "from": "git+ssh://git@github.com/shopify/node-themekit.git#2ed87190c8493f1c38adb2490bed812d9ca0e288",
-      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#2ed87190c8493f1c38adb2490bed812d9ca0e288"
+      "from": "git+ssh://git@github.com/shopify/node-themekit.git#a74c14ffcb44877980e9633c74b1425ff0d895e6",
+      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#a74c14ffcb44877980e9633c74b1425ff0d895e6"
     },
     "abbrev": {
       "version": "1.0.9",
