@@ -1,5 +1,5 @@
 var Promise = require('bluebird');
-var command = Promise.promisify(require('shopify-themekit').command);
+var command = Promise.promisify(require('@shopify/themekit').command);
 
 module.exports = {
   command: function(args, options) {

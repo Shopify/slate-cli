@@ -22,6 +22,7 @@
     "generate-section": "yo --no-insight --no-update-notifier ./generators/new-section/section.js"
   },
   "dependencies": {
+    "@shopify/themekit": "github:shopify/node-themekit#inital-pass",
     "Slate": "github:shopify/slate#5370bee204e66644ebc6f09d5c4d8c1325741a63",
     "bin-wrapper": "3.0.2",
     "bluebird": "3.4.6",
@@ -32,7 +33,6 @@
     "nopt": "3.0.6",
     "open": "0.0.5",
     "request": "2.75.0",
-    "shopify-themekit": "github:shopify/node-themekit#inital-pass",
     "yeoman-generator": "0.24.1",
     "yo": "1.8.5"
   },

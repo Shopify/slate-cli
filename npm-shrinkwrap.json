@@ -2,6 +2,11 @@
   "name": "slate-cli",
   "version": "0.8.0",
   "dependencies": {
+    "@shopify/themekit": {
+      "version": "0.4.3",
+      "from": "git+ssh://git@github.com/shopify/node-themekit.git#2ed87190c8493f1c38adb2490bed812d9ca0e288",
+      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#2ed87190c8493f1c38adb2490bed812d9ca0e288"
+    },
     "abbrev": {
       "version": "1.0.9",
       "from": "abbrev@>=1.0.0 <2.0.0",
@@ -2715,11 +2720,6 @@
           "resolved": "https://registry.npmjs.org/glob/-/glob-7.1.0.tgz"
         }
       }
-    },
-    "shopify-themekit": {
-      "version": "0.4.3",
-      "from": "git+ssh://git@github.com/shopify/node-themekit.git#d6a00a098287d0f0d1e46f363c2a4ae9e3314985",
-      "resolved": "git+ssh://git@github.com/shopify/node-themekit.git#d6a00a098287d0f0d1e46f363c2a4ae9e3314985"
     },
     "signal-exit": {
       "version": "3.0.1",
