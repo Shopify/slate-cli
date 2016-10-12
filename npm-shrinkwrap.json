@@ -29,11 +29,6 @@
         }
       }
     },
-    "addressparser": {
-      "version": "0.1.3",
-      "from": "addressparser@>=0.1.3 <0.2.0",
-      "resolved": "https://registry.npmjs.org/addressparser/-/addressparser-0.1.3.tgz"
-    },
     "ajv": {
       "version": "4.7.7",
       "from": "ajv@>=4.7.0 <5.0.0",
@@ -110,11 +105,6 @@
       "version": "1.0.2",
       "from": "array-find-index@>=1.0.1 <2.0.0",
       "resolved": "https://registry.npmjs.org/array-find-index/-/array-find-index-1.0.2.tgz"
-    },
-    "array-indexofobject": {
-      "version": "0.0.1",
-      "from": "array-indexofobject@>=0.0.1 <0.1.0",
-      "resolved": "https://registry.npmjs.org/array-indexofobject/-/array-indexofobject-0.0.1.tgz"
     },
     "array-union": {
       "version": "1.0.2",
@@ -271,11 +261,6 @@
           "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.0.6.tgz"
         }
       }
-    },
-    "bluebird": {
-      "version": "3.4.6",
-      "from": "bluebird@3.4.6",
-      "resolved": "https://registry.npmjs.org/bluebird/-/bluebird-3.4.6.tgz"
     },
     "boolbase": {
       "version": "1.0.0",
@@ -1088,23 +1073,6 @@
       "version": "1.0.1",
       "from": "fd-slicer@>=1.0.1 <1.1.0",
       "resolved": "https://registry.npmjs.org/fd-slicer/-/fd-slicer-1.0.1.tgz"
-    },
-    "feedparser": {
-      "version": "1.1.5",
-      "from": "feedparser@1.1.5",
-      "resolved": "https://registry.npmjs.org/feedparser/-/feedparser-1.1.5.tgz",
-      "dependencies": {
-        "isarray": {
-          "version": "0.0.1",
-          "from": "isarray@0.0.1",
-          "resolved": "https://registry.npmjs.org/isarray/-/isarray-0.0.1.tgz"
-        },
-        "readable-stream": {
-          "version": "1.0.34",
-          "from": "readable-stream@>=1.0.17 <1.1.0",
-          "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-1.0.34.tgz"
-        }
-      }
     },
     "figures": {
       "version": "1.7.0",
@@ -2673,11 +2641,6 @@
       "version": "1.1.2",
       "from": "samsam@1.1.2",
       "resolved": "https://registry.npmjs.org/samsam/-/samsam-1.1.2.tgz"
-    },
-    "sax": {
-      "version": "0.6.1",
-      "from": "sax@>=0.6.0 <0.7.0",
-      "resolved": "https://registry.npmjs.org/sax/-/sax-0.6.1.tgz"
     },
     "seek-bzip": {
       "version": "1.0.5",

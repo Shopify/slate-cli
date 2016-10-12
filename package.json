@@ -24,15 +24,11 @@
   "dependencies": {
     "@shopify/themekit": "0.4.3",
     "Slate": "git+ssh://git@github.com/shopify/slate.git#e1ab032b596ddfb5e7722efb6a9792eb1bce5adf",
-    "bin-wrapper": "3.0.2",
-    "bluebird": "3.4.6",
-    "feedparser": "1.1.5",
     "find-root": "1.0.0",
     "global-npm": "0.3.0",
     "lodash": "4.16.4",
     "nopt": "3.0.6",
     "open": "0.0.5",
-    "request": "2.75.0",
     "yeoman-generator": "0.24.1",
     "yo": "1.8.5"
   },
