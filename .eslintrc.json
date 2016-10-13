@@ -7,7 +7,6 @@
   "rules": {
     "no-console": 0,
     "node/shebang": 0,
-    "comma-dangle": 0,
-    "no-process-exit": 0
+    "comma-dangle": 0
   }
 }

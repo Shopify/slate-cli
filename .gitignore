@@ -46,6 +46,4 @@ bower_components
 
 # Other
 .DS_Store
-bundle.js
 test/output
-lib/
