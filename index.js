@@ -12,7 +12,7 @@ const commands = minimist(process.argv.slice(2))._;
 if ('dependencies' in pkg && 'slate-tools' in pkg.dependencies) {
   debug('✓ This package.json has required dependency slate-tools');
 } else {
-  throw new Error('Missing dependency slate-tools. Try `npm install slate-tools`.');
+  throw new Error('package.json missing dependency slate-tools. Try `npm install slate-tools`.');
 }
 
 function newTheme() {
