@@ -14,7 +14,7 @@ const argv = minimist(process.argv.slice(2));
 debug(process.argv.slice(2));
 debug(argv);
 
-function newTheme() {
+function createTheme() {
   return new Promise((resolve) => {
     console.log('  I wish I could make a new theme...');
     resolve();
@@ -31,23 +31,26 @@ function checkThemeDeps() {
   });
 }
 
-if (argv.version || argv.v) {
-  console.log(`  slate-cli ${pkg.version}`);
+function checkForVersionArgument() {
+  if (argv._.length === 0 && (argv.v || argv.version)) { // eslint-disable-line id-length
+    console.log(`  slate-cli ${pkg.version}`);
 
-  return checkThemeDeps()
-    .then(() => {
+    try {
       console.log(`  slate-tools ${themePkg.version}`);
-      return;
-    })
-    .catch(() => {
-      return;
-    });
+    } catch (err) {
+      console.log('  slate-tools n/a - not inside a Slate theme directory');
+    }
+  }
+
+  return;
 }
+
+checkForVersionArgument();
 
 if (argv._.length > 0 && argv._[0] === 'new' && argv._[1] === 'theme') {
   console.log('  This may take some time...');
   console.log('');
-  return newTheme();
+  return createTheme();
 }
 
 checkThemeDeps()
