@@ -8,11 +8,12 @@ const minimist = require('minimist');
 const themeRoot = require('find-root')(process.cwd());
 
 const pkg = require(join(__dirname, 'package.json'));
-const themePkg = require(join(themeRoot, 'package.json'));
+const themePkgPath = join(themeRoot, 'package.json');
+const themePkg = require(themePkgPath);
 const argv = minimist(process.argv.slice(2));
 
-debug(process.argv.slice(2));
 debug(argv);
+debug(`Loading theme: ${themePkgPath}`);
 
 function createTheme() {
   return new Promise((resolve) => {
@@ -22,24 +23,25 @@ function createTheme() {
 }
 
 function checkThemeDeps() {
-  return new Promise((resolve, reject) => {
-    if (('dependencies' in themePkg && 'slate-tools' in themePkg.dependencies) || ('devDependencies' in themePkg && 'slate-tools' in themePkg.devDependencies)) {
-      resolve(`${chalk.green('✓')} package.json has required dependency: slate-tools`);
-    } else {
-      reject(`${chalk.red('✗')} package.json missing dependency slate-tools. Try \`npm install slate-tools\`.`);
-    }
-  });
+  if (('dependencies' in themePkg && 'slate-tools' in themePkg.dependencies) || ('devDependencies' in themePkg && 'slate-tools' in themePkg.devDependencies)) {
+    return `${chalk.green('✓')} package.json has required dependency: slate-tools`;
+  } else {
+    throw new Error(`${chalk.red('✗')} package.json missing dependency slate-tools. Try \`npm install slate-tools\`.`);
+  }
 }
 
 function checkForVersionArgument() {
   if (argv._.length === 0 && (argv.v || argv.version)) { // eslint-disable-line id-length
-    console.log(`  slate-cli ${pkg.version}`);
+    console.log(`  slate-cli   ${pkg.version}`);
 
     try {
+      checkThemeDeps();
       console.log(`  slate-tools ${themePkg.version}`);
     } catch (err) {
       console.log('  slate-tools n/a - not inside a Slate theme directory');
     }
+
+    process.exit(); // eslint-disable-line no-process-exit
   }
 
   return;
@@ -53,15 +55,15 @@ if (argv._.length > 0 && argv._[0] === 'new' && argv._[1] === 'theme') {
   return createTheme();
 }
 
-checkThemeDeps()
-  .then((response) => {
-    debug(response);
-    debug('Searching slate-tools...');
+try {
+  const response = checkThemeDeps();
+  debug(response);
+  debug('Searching slate-tools...');
+  debug(process.argv.slice(2));
 
-    return spawn('slate-tools', process.argv.slice(2), {
-      stdio: 'inherit'
-    });
-  })
-  .catch((err) => {
-    console.error(err);
+  return spawn('slate-tools', process.argv.slice(2), {
+    stdio: 'inherit'
   });
+} catch (err) {
+  console.error(err);
+}
