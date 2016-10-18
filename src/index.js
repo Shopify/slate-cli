@@ -14,6 +14,7 @@ const currentDirectory = __dirname;
 
 class Cli {
   constructor(cwd) {
+    this.binName = 'slate';
     this.argv = minimist(process.argv.slice(2));
     this.pkg = require(join(currentDirectory, '..', 'package.json'));
     this.closestPkg = findRoot(cwd);
@@ -27,12 +28,12 @@ class Cli {
 
   checkForVersionArgument() {
     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
-      console.log(`  slate       ${this.pkg.version}`);
+      console.log(`  ${this.binName}       ${this.pkg.version}`);
 
       if (this.theme.hasDependency(this.tools.name) === true) {
-        console.log(`  slate-tools ${this.theme.pkg.version}`);
+        console.log(`  ${this.tools.binName} ${this.theme.pkg.version}`);
       } else {
-        console.log('  slate-tools n/a - not inside a Slate theme directory');
+        console.log(`  ${this.tools.binName} n/a - not inside a Slate theme directory`);
       }
 
       process.exit(); // eslint-disable-line no-process-exit
