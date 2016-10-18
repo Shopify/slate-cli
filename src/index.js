@@ -30,8 +30,8 @@ class Cli {
     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
       console.log(`  ${this.binName}       ${this.pkg.version}`);
 
-      if (this.theme.hasDependency(this.tools.name) === true) {
-        console.log(`  ${this.tools.binName} ${this.theme.pkg.version}`);
+      if (this.theme.hasDependency(this.tools.name) === true && this.tools.pkg.version) {
+        console.log(`  ${this.tools.binName} ${this.tools.pkg.version}`);
       } else {
         console.log(`  ${this.tools.binName} n/a - not inside a Slate theme directory`);
       }

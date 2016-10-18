@@ -8,9 +8,19 @@ const depKeys = ['dependencies', 'devDependencies'];
 export default class Theme {
   constructor(themeRootDirectory) {
     this.root = themeRootDirectory;
-    this.pkg = require(join(this.root, 'package.json'));
+    this.pkg = {};
 
+    this.setPkg();
     debug(`Loading theme: ${this.pkg}`);
+  }
+
+  setPkg() {
+    try {
+      this.pkg = require(join(this.root, 'package.json'));
+    } catch (err) {
+      logger(err);
+      this.pkg = {};
+    }
   }
 
   hasDependency(dependency) {
