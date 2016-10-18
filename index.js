@@ -23,16 +23,16 @@ function createTheme() {
 }
 
 function checkThemeDeps() {
-  if (('dependencies' in themePkg && 'slate-tools' in themePkg.dependencies) || ('devDependencies' in themePkg && 'slate-tools' in themePkg.devDependencies)) {
-    return `${chalk.green('✓')} package.json has required dependency: slate-tools`;
+  if (('dependencies' in themePkg && '@shopify/slate-tools' in themePkg.dependencies) || ('devDependencies' in themePkg && '@shopify/slate-tools' in themePkg.devDependencies)) {
+    return `${chalk.green('✓')} package.json has required dependency: @shopify/slate-tools`;
   } else {
-    throw new Error(`${chalk.red('✗')} package.json missing dependency slate-tools. Try \`npm install slate-tools\`.`);
+    throw new Error(`${chalk.red('✗')} package.json missing dependency @shopify/slate-tools. Try \`npm install @shopify/slate-tools\`.`);
   }
 }
 
 function checkForVersionArgument() {
   if (argv._.length === 0 && (argv.v || argv.version)) { // eslint-disable-line id-length
-    console.log(`  slate-cli   ${pkg.version}`);
+    console.log(`  slate       ${pkg.version}`);
 
     try {
       checkThemeDeps();
