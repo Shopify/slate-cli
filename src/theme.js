@@ -1,6 +1,6 @@
-import debug from 'debug';
 import {green, red} from 'chalk';
 import {join} from 'path';
+import debug from 'debug';
 
 const logger = debug('slate-cli:theme');
 const depKeys = ['dependencies', 'devDependencies'];
