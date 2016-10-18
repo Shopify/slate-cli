@@ -58,10 +58,11 @@ if (argv._.length > 0 && argv._[0] === 'new' && argv._[1] === 'theme') {
 try {
   const response = checkThemeDeps();
   debug(response);
+  debug(themeRoot);
   debug('Searching slate-tools...');
   debug(process.argv.slice(2));
 
-  return spawn('slate-tools', process.argv.slice(2), {
+  return spawn(`${themeRoot}/node_modules/.bin/slate-tools`, process.argv.slice(2), {
     stdio: 'inherit'
   });
 } catch (err) {
