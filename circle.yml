@@ -3,9 +3,8 @@ machine:
     version: 4.6.1
 
 dependencies:
-  pre:
-    - npm run prepublish
   post:
+    - npm run prepublish
     - npm link
 
 test:
