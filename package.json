@@ -3,9 +3,9 @@
   "version": "0.8.0",
   "description": "Slate CLI tools",
   "bin": {
-    "slate": "index.js"
+    "slate": "lib/index.js"
   },
-  "main": "index.js",
+  "main": "lib/index.js",
   "engines": {
     "node": ">=4"
   },
@@ -18,14 +18,23 @@
     "minimist": "1.2.0"
   },
   "devDependencies": {
+    "babel": "^6.5.2",
+    "babel-cli": "^6.11.4",
+    "babel-core": "^6.13.2",
+    "babel-plugin-add-shopify-header": "^1.0.0",
+    "babel-preset-shopify": "^13.0.0",
+    "babel-register": "^6.11.6",
     "eslint": "3.3.1",
     "eslint-plugin-node": "2.1.2",
     "eslint-plugin-shopify": "14.0.2"
   },
   "scripts": {
-    "test": "npm run lint",
+    "clean": "rm -rf lib/",
     "lint": "eslint --max-warnings 0 -c .eslintrc.json src/",
-    "lint-allow-warning": "eslint -c .eslintrc.json src/"
+    "lint-allow-warning": "eslint -c .eslintrc.json src/",
+    "start": "npm run clean && babel -w -d lib/ src/",
+    "test": "npm run lint",
+    "prepublish": "npm run lint && npm run clean && babel -d lib/ src/"
   },
   "keywords": [
     "shopify",
