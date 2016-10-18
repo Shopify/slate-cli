@@ -34,7 +34,7 @@
     "lint-allow-warning": "eslint -c .eslintrc.json src/",
     "start": "npm run clean && babel -w -d lib/ src/",
     "test": "npm run lint",
-    "prepublish": "npm run lint && npm run clean && babel -d lib/ src/"
+    "prepublish": "npm test && npm run clean && babel -d lib/ src/"
   },
   "keywords": [
     "shopify",
