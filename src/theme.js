@@ -11,6 +11,8 @@ const s3Url = 'https://sdks-staging.shopifycdn.com/slate/latest/slate-unbuilt.zi
 
 export default class Theme {
   constructor(cwd) {
+    logger('Instantiated Theme');
+
     this.cwd = cwd;
     this.root = null;
     this.pkg = {};
@@ -55,7 +57,7 @@ export default class Theme {
     this.root = join(this.cwd, this.dirName);
 
     if (existsSync(this.root) === true) {
-      console.error(`  ${this.root} is not an empty directory`);
+      console.error(red(`  ${this.root} is not an empty directory`));
     } else {
       mkdirSync(this.root);
 
@@ -84,7 +86,7 @@ export default class Theme {
           return;
         })
         .catch((err) => {
-          return err;
+          console.error(red(err));
         });
     }
   }
@@ -92,14 +94,17 @@ export default class Theme {
   setRoot(cwd) {
     try {
       this.root = normalize(findRoot(cwd));
+      logger(`Found theme root: ${this.root}`);
     } catch (err) {
       logger(err);
     }
   }
 
   setPkg() {
+    const pkgPath = join(this.root, 'package.json');
     try {
-      this.pkg = require(join(this.root, 'package.json'));
+      this.pkg = require(pkgPath);
+      logger(`Found theme package.json: ${pkgPath}`);
     } catch (err) {
       logger(err);
     }
@@ -109,6 +114,7 @@ export default class Theme {
     try {
       this.tools.bin = join(this.root, normalize(`/node_modules/.bin/${this.tools.binName}`));
       this.tools.version = this.pkg.devDependencies[this.tools.name] || this.pkg.dependencies[this.tools.name];
+      logger(`Found bin: ${this.tools.bin} - version ${this.tools.version}`);
     } catch (err) {
       logger(err);
     }

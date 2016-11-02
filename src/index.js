@@ -11,6 +11,8 @@ const logger = debug('slate-cli:cli');
 
 class Cli {
   constructor(cwd) {
+    logger('Instantiated Cli');
+
     this.binName = 'slate';
     this.argv = minimist(process.argv.slice(2));
     this.pkg = require(join(__dirname, normalize('../package.json')));
@@ -38,22 +40,27 @@ class Cli {
 
   checkForVersionArgument() {
     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
+      logger('Found version argument');
       return true;
     } else {
+      logger('No version argument');
       return false;
     }
   }
 
   checkForNewTheme() {
     if (this.argv._.length > 0 && this.argv._[0] === 'new' && this.argv._[1] === 'theme') {
+      logger('Found new theme command');
       return true;
     } else {
+      logger('No new theme command');
       return false;
     }
   }
 
   checkForThemeCommands() {
     if (this.theme.hasDependency(this.theme.tools.name) === true) {
+      logger(`Theme has required dependency: ${this.theme.tools.name}`);
       return true;
     } else {
       console.error(`package.json missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
@@ -72,6 +79,7 @@ class Cli {
   }
 
   spawnThemeCommand() {
+    logger(`Spawning theme command to: ${this.theme.tools.bin}`);
     startProcess(this.theme.tools.bin, process.argv.slice(2));
   }
 }
