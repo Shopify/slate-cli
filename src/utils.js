@@ -1,7 +1,7 @@
 import {readdirSync, createReadStream, createWriteStream, unlink, unlinkSync, writeFileSync} from 'fs';
-import {spawn} from 'child_process';
 import {Extract} from 'unzip2';
 import {get} from 'https';
+import spawn from 'cross-spawn';
 
 export function copyDir(source, target) {
   return new Promise((resolve, reject) => {
