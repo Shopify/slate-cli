@@ -3,7 +3,15 @@ import {Extract} from 'unzip2';
 import {get} from 'https';
 import spawn from 'cross-spawn';
 
-export function downloadFromS3(source, target) {
+/**
+ * Download file from url and write to target.
+ *
+ * @param {string} source - The url to the file to download.
+ * @param {string} target - The path to the file destination.
+ *
+ * @return {string} - The path to the file destination.
+ */
+export function downloadFromUrl(source, target) {
   return new Promise((resolve, reject) => {
     const themeZipFile = createWriteStream(target);
 
@@ -24,6 +32,12 @@ export function downloadFromS3(source, target) {
   });
 }
 
+/**
+ * Extract zip file to target and unlink zip file.
+ *
+ * @param {string} source - The path to the zip file.
+ * @param {string} target - The path to the unzip destination.
+ */
 export function unzip(source, target) {
   return new Promise((resolve, reject) => {
     const zipFile = createReadStream(source);
@@ -43,7 +57,13 @@ export function unzip(source, target) {
   });
 }
 
-export function writePackageJsonSync(target, name) {
+/**
+ * Write minimal package.json to destination.
+ *
+ * @param {string} target - The path to the target package.json.
+ * @param {string} name - The name of the theme.
+ */
+export function writePackageJsonSync(target, name = 'theme') {
   const pkg = {
     name,
     version: '0.0.1',
@@ -54,6 +74,13 @@ export function writePackageJsonSync(target, name) {
   writeFileSync(target, data);
 }
 
+/**
+ * Start a child process and stream output.
+ *
+ * @param {string} command - The command to run.
+ * @param {string} args - List of string arguments.
+ * @param {string} args - Options object, see: https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+ */
 export function startProcess(command, args, options) {
   const defaultedOptions = options || {};
   defaultedOptions.stdio = defaultedOptions.stdio || 'inherit';

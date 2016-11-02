@@ -3,12 +3,16 @@ import {green, red} from 'chalk';
 import {join, normalize} from 'path';
 import debug from 'debug';
 import findRoot from 'find-root';
-import {downloadFromS3, unzip, startProcess, writePackageJsonSync} from './utils';
+import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from './utils';
 
 const logger = debug('slate-cli:theme');
 const depKeys = ['dependencies', 'devDependencies'];
 const s3Url = 'https://sdks-staging.shopifycdn.com/slate/latest/slate-unbuilt.zip';
 
+/**
+ * A slate theme.
+ * @constructor
+ */
 export default class Theme {
   constructor(cwd) {
     logger('Instantiated Theme');
@@ -30,6 +34,13 @@ export default class Theme {
     logger(`Loading theme: ${this.pkg}`);
   }
 
+  /**
+   * Checks for specified dependency in theme's package.json.
+   *
+   * @param {string} dependency - The name of the dependency.
+   *
+   * @return {boolean} - Whether dependency exists or not
+   */
   hasDependency(dependency) {
     let hasDependencies = false;
 
@@ -49,6 +60,11 @@ export default class Theme {
     }
   }
 
+  /**
+   * Creates new theme from slate-theme in S3.
+   *
+   * @param {string} name - The name of the theme.
+   */
   create(name = 'theme') {
     console.log('  This may take some time...');
     console.log('');
@@ -61,7 +77,7 @@ export default class Theme {
     } else {
       mkdirSync(this.root);
 
-      downloadFromS3(s3Url, join(this.root, 'slate-theme.zip'))
+      downloadFromUrl(s3Url, join(this.root, 'slate-theme.zip'))
         .then((themeZipFile) => {
           logger(`Download complete ${themeZipFile}`);
 
@@ -91,6 +107,11 @@ export default class Theme {
     }
   }
 
+  /**
+   * Sets root to closest package.json path.
+   *
+   * @param {string} cwd - The path to bubble up from.
+   */
   setRoot(cwd) {
     try {
       this.root = normalize(findRoot(cwd));
@@ -100,6 +121,10 @@ export default class Theme {
     }
   }
 
+  /**
+   * Sets pkg to require theme's package.json based on root.
+   *
+   */
   setPkg() {
     const pkgPath = join(this.root, 'package.json');
     try {
@@ -110,6 +135,10 @@ export default class Theme {
     }
   }
 
+  /**
+   * Sets tools to slate-tools binary based on root.
+   *
+   */
   setTools() {
     try {
       this.tools.bin = join(this.root, normalize(`/node_modules/.bin/${this.tools.binName}`));

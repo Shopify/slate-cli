@@ -3,12 +3,15 @@
 import {join, normalize} from 'path';
 import debug from 'debug';
 import minimist from 'minimist';
-import findRoot from 'find-root';
 import Theme from './theme';
 import {startProcess} from './utils';
 
 const logger = debug('slate-cli:cli');
 
+/**
+ * A slate cli.
+ * @constructor
+ */
 class Cli {
   constructor(cwd) {
     logger('Instantiated Cli');
@@ -22,22 +25,15 @@ class Cli {
       this.outputVersion();
     } else if (this.checkForNewTheme() === true) {
       this.theme.create(this.argv._[2]);
-    } else if (this.checkForThemeCommands() === true) {
+    } else if (this.checkForThemeDependencies() === true) {
       this.spawnThemeCommand(cwd);
     }
   }
 
-  checkForPkg(cwd) {
-    try {
-      findRoot(cwd);
-    } catch (err) {
-      logger(err);
-      return false;
-    }
-
-    return true;
-  }
-
+  /**
+   * Checks for version argument in argv.
+   *
+   */
   checkForVersionArgument() {
     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
       logger('Found version argument');
@@ -48,6 +44,10 @@ class Cli {
     }
   }
 
+  /**
+   * Checks for new theme command in argv.
+   *
+   */
   checkForNewTheme() {
     if (this.argv._.length > 0 && this.argv._[0] === 'new' && this.argv._[1] === 'theme') {
       logger('Found new theme command');
@@ -58,7 +58,11 @@ class Cli {
     }
   }
 
-  checkForThemeCommands() {
+  /**
+   * Checks for theme dependencies.
+   *
+   */
+  checkForThemeDependencies() {
     if (this.theme.hasDependency(this.theme.tools.name) === true) {
       logger(`Theme has required dependency: ${this.theme.tools.name}`);
       return true;
@@ -68,6 +72,10 @@ class Cli {
     }
   }
 
+  /**
+   * Ouputs version info about slate-cli and slate-tools
+   *
+   */
   outputVersion() {
     console.log(`  ${this.binName}       ${this.pkg.version}`);
 
@@ -78,6 +86,10 @@ class Cli {
     }
   }
 
+  /**
+   * Starts theme command on local slate-tools
+   *
+   */
   spawnThemeCommand() {
     logger(`Spawning theme command to: ${this.theme.tools.bin}`);
     startProcess(this.theme.tools.bin, process.argv.slice(2));
