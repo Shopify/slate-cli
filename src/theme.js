@@ -11,6 +11,7 @@ const s3Url = 'https://sdks-staging.shopifycdn.com/slate/latest/slate-unbuilt.zi
 
 export default class Theme {
   constructor(cwd) {
+    this.cwd = cwd;
     this.root = null;
     this.pkg = {};
     this.tools = {
@@ -20,7 +21,7 @@ export default class Theme {
       version: null,
     };
 
-    this.setRoot(cwd);
+    this.setRoot(this.cwd);
     this.setPkg();
     this.setTools();
 
@@ -50,10 +51,8 @@ export default class Theme {
     console.log('  This may take some time...');
     console.log('');
 
-    const cwd = process.cwd();
-
     this.dirName = name;
-    this.root = join(cwd, this.dirName);
+    this.root = join(this.cwd, this.dirName);
 
     if (existsSync(this.root) === true) {
       console.error(`  ${this.root} is not an empty directory`);
@@ -81,6 +80,7 @@ export default class Theme {
           console.log(`  ${green('✓')} devDependencies installed`);
           console.log(`  ${green('✓')} ${this.dirName} theme is ready`);
           console.log('');
+
           return;
         })
         .catch((err) => {
