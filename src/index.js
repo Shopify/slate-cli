@@ -67,7 +67,7 @@ class Cli {
       logger(`Theme has required dependency: ${this.theme.tools.name}`);
       return true;
     } else {
-      console.error(`package.json missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
+      console.error(`Theme is missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
       return false;
     }
   }
