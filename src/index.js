@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import {join} from 'path';
+import {join, normalize} from 'path';
 import debug from 'debug';
 import minimist from 'minimist';
 import findRoot from 'find-root';
@@ -13,7 +13,7 @@ class Cli {
   constructor(cwd) {
     this.binName = 'slate';
     this.argv = minimist(process.argv.slice(2));
-    this.pkg = require(join(__dirname, '../package.json'));
+    this.pkg = require(join(__dirname, normalize('../package.json')));
     this.theme = new Theme(cwd);
 
     if (this.checkForVersionArgument() === true) {

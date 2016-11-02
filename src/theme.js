@@ -1,6 +1,6 @@
 import {existsSync, mkdirSync} from 'fs'; // eslint-disable-line node/no-deprecated-api
 import {green, red} from 'chalk';
-import {join} from 'path';
+import {join, normalize} from 'path';
 import debug from 'debug';
 import findRoot from 'find-root';
 import {downloadFromS3, unzip, startProcess, writePackageJsonSync} from './utils';
@@ -91,7 +91,7 @@ export default class Theme {
 
   setRoot(cwd) {
     try {
-      this.root = findRoot(cwd);
+      this.root = normalize(findRoot(cwd));
     } catch (err) {
       logger(err);
     }
@@ -107,7 +107,7 @@ export default class Theme {
 
   setTools() {
     try {
-      this.tools.bin = join(this.root, `/node_modules/.bin/${this.tools.binName}`);
+      this.tools.bin = join(this.root, normalize(`/node_modules/.bin/${this.tools.binName}`));
       this.tools.version = this.pkg.devDependencies[this.tools.name] || this.pkg.dependencies[this.tools.name];
     } catch (err) {
       logger(err);
