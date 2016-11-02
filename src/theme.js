@@ -30,8 +30,6 @@ export default class Theme {
     this.setRoot(this.cwd);
     this.setPkg();
     this.setTools();
-
-    logger(`Loading theme: ${this.pkg}`);
   }
 
   /**
@@ -66,15 +64,15 @@ export default class Theme {
    * @param {string} name - The name of the theme.
    */
   create(name = 'theme') {
-    console.log('  This may take some time...');
-    console.log('');
-
     this.dirName = name;
     this.root = join(this.cwd, this.dirName);
 
     if (existsSync(this.root) === true) {
       console.error(red(`  ${this.root} is not an empty directory`));
     } else {
+      console.log('  This may take some time...');
+      console.log('');
+
       mkdirSync(this.root);
 
       downloadFromUrl(s3Url, join(this.root, 'slate-theme.zip'))
@@ -126,8 +124,8 @@ export default class Theme {
    *
    */
   setPkg() {
-    const pkgPath = join(this.root, 'package.json');
     try {
+      const pkgPath = join(this.root, 'package.json');
       this.pkg = require(pkgPath);
       logger(`Found theme package.json: ${pkgPath}`);
     } catch (err) {
