@@ -52,10 +52,10 @@ export default class Theme {
     if (hasDependencies) {
       logger(`${green('✓')} package.json has required dependency: ${this.tools.name}`);
       return true;
-    } else {
-      logger(`${red('✗')} package.json missing dependency ${this.tools.name}. Try \`npm install ${this.tools.name}\`.`);
-      return false;
     }
+
+    logger(`${red('✗')} package.json missing dependency ${this.tools.name}. Try \`npm install ${this.tools.name}\`.`);
+    return false;
   }
 
   /**
@@ -67,42 +67,39 @@ export default class Theme {
     this.dirName = name;
     this.root = join(this.cwd, this.dirName);
 
-    if (existsSync(this.root) === true) {
-      console.error(red(`  ${this.root} is not an empty directory`));
-    } else {
-      console.log('  This may take some time...');
-      console.log('');
-
-      mkdirSync(this.root);
-
-      downloadFromUrl(s3Url, join(this.root, 'slate-theme.zip'))
-        .then((themeZipFile) => {
-          logger(`Download complete ${themeZipFile}`);
-
-          return unzip(themeZipFile, this.root);
-        })
-        .then(() => {
-          console.log(`  ${green('✓')} slate-theme download completed`);
-
-          const pkg = join(this.root, 'package.json');
-
-          writePackageJsonSync(pkg, this.dirName);
-
-          return startProcess('npm', ['install', '@shopify/slate-tools', '-D'], {
-            cwd: this.root,
-          });
-        })
-        .then(() => {
-          console.log(`  ${green('✓')} devDependencies installed`);
-          console.log(`  ${green('✓')} ${this.dirName} theme is ready`);
-          console.log('');
-
-          return;
-        })
-        .catch((err) => {
-          console.error(red(err));
-        });
+    if (existsSync(this.root)) {
+      return Promise.reject(red(`  ${this.root} is not an empty directory`));
     }
+
+    console.log('  This may take some time...');
+    console.log('');
+
+    mkdirSync(this.root);
+
+    return downloadFromUrl(s3Url, join(this.root, 'slate-theme.zip'))
+      .then((themeZipFile) => {
+        logger(`Download complete ${themeZipFile}`);
+
+        return unzip(themeZipFile, this.root);
+      })
+      .then(() => {
+        console.log(`  ${green('✓')} slate-theme download completed`);
+
+        const pkg = join(this.root, 'package.json');
+
+        writePackageJsonSync(pkg, this.dirName);
+
+        return startProcess('npm', ['install', '@shopify/slate-tools', '-D'], {
+          cwd: this.root,
+        });
+      })
+      .then(() => {
+        console.log(`  ${green('✓')} devDependencies installed`);
+        console.log(`  ${green('✓')} ${this.dirName} theme is ready`);
+        console.log('');
+
+        return;
+      });
   }
 
   /**

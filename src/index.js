@@ -21,13 +21,28 @@ class Cli {
     this.pkg = require(join(__dirname, normalize('../package.json')));
     this.theme = new Theme(cwd);
 
-    if (this.checkForVersionArgument() === true) {
+    if (this.checkForVersionArgument()) {
       this.outputVersion();
-    } else if (this.checkForNewTheme() === true) {
-      this.theme.create(this.argv._[2]);
-    } else if (this.checkForThemeDependencies() === true) {
-      this.spawnThemeCommand(cwd);
+
+      return;
     }
+
+    if (this.checkForNewTheme()) {
+      this.theme.create(this.argv._[2])
+        .catch((err) => {
+          console.error(err);
+        });
+
+      return;
+    }
+
+    if (this.checkForThemeDependencies()) {
+      this.spawnThemeCommand(cwd);
+
+      return;
+    }
+
+    console.error('Please provide valid command.');
   }
 
   /**
@@ -38,10 +53,10 @@ class Cli {
     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
       logger('Found version argument');
       return true;
-    } else {
-      logger('No version argument');
-      return false;
     }
+
+    logger('No version argument');
+    return false;
   }
 
   /**
@@ -52,10 +67,10 @@ class Cli {
     if (this.argv._.length > 0 && this.argv._[0] === 'new' && this.argv._[1] === 'theme') {
       logger('Found new theme command');
       return true;
-    } else {
-      logger('No new theme command');
-      return false;
     }
+
+    logger('No new theme command');
+    return false;
   }
 
   /**
@@ -63,13 +78,13 @@ class Cli {
    *
    */
   checkForThemeDependencies() {
-    if (this.theme.hasDependency(this.theme.tools.name) === true) {
+    if (this.theme.hasDependency(this.theme.tools.name)) {
       logger(`Theme has required dependency: ${this.theme.tools.name}`);
       return true;
-    } else {
-      console.error(`Theme is missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
-      return false;
     }
+
+    console.error(`Theme is missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
+    return false;
   }
 
   /**
@@ -79,11 +94,12 @@ class Cli {
   outputVersion() {
     console.log(`  ${this.binName}       ${this.pkg.version}`);
 
-    if (this.theme.hasDependency(this.theme.tools.name) === true && this.theme.tools.version) {
+    if (this.theme.hasDependency(this.theme.tools.name) && this.theme.tools.version) {
       console.log(`  ${this.theme.tools.binName} ${this.theme.tools.version}`);
-    } else {
-      console.log(`  ${this.theme.tools.binName} n/a - not inside a Slate theme directory`);
+      return;
     }
+
+    console.log(`  ${this.theme.tools.binName} n/a - not inside a Slate theme directory`);
   }
 
   /**
