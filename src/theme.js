@@ -7,7 +7,7 @@ import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from './util
 
 const logger = debug('slate-cli:theme');
 const depKeys = ['dependencies', 'devDependencies'];
-const s3Url = 'https://sdks-staging.shopifycdn.com/slate/latest/slate-unbuilt.zip';
+const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
 
 /**
  * A slate theme.
