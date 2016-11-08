@@ -22,13 +22,12 @@ function checkForSlateTools(npmRoot) {
   return hasDependency('@shopify/slate-tools', pkg);
 }
 
-const workingDirectory = process.cwd();
-
 // Global commands
 require('./commands/theme').default(program);
 require('./commands/version').default(program);
 
 // Dynamically add in theme commands
+const workingDirectory = process.cwd();
 const themeRoot = getThemeRoot(workingDirectory);
 
 if (themeRoot && checkForSlateTools(themeRoot)) {
