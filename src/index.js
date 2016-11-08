@@ -21,7 +21,7 @@ function getThemeRoot(directory) {
 }
 
 /**
- * Check package.json for slate-tools
+ * Check package.json for slate-tools.
  *
  * @param {string} themeRoot - The path for the root of the theme.
  */
@@ -32,6 +32,23 @@ function checkForSlateTools(themeRoot) {
   return hasDependency('@shopify/slate-tools', pkg);
 }
 
+/**
+ * Output information if/else slate theme directory.
+ *
+ * @param {boolean} isSlateTheme - Whether in slate theme or not.
+ */
+function outputSlateThemeCheck(isSlateTheme) {
+  if (isSlateTheme) {
+    console.log('');
+    console.log(`  Slate theme: ${green('✓')} inside slate theme directory`);
+    console.log('');
+  } else {
+    console.log('');
+    console.log(`  Slate theme: ${red('✗')} switch to a slate theme directory for full list of commands`);
+    console.log('');
+  }
+}
+
 // Global commands
 require('./commands/theme').default(program);
 require('./commands/version').default(program);
@@ -39,40 +56,28 @@ require('./commands/version').default(program);
 // Dynamically add in theme commands
 const workingDirectory = process.cwd();
 const themeRoot = getThemeRoot(workingDirectory);
+const isSlateTheme = (themeRoot && checkForSlateTools(themeRoot));
 
-if (themeRoot && checkForSlateTools(themeRoot)) {
+if (isSlateTheme) {
   const slateToolsCommands = join(themeRoot, normalize('/node_modules/@shopify/slate-tools/lib/commands'));
 
   readdirSync(slateToolsCommands)
     .filter((file) => ~file.search(/^[^\.].*\.js$/))
     .forEach((file) => require(join(slateToolsCommands, file)).default(program));
-
-  console.log('');
-  console.log(`  Slate theme: ${green('✓')} - inside theme directory`);
-  console.log('');
-} else {
-  console.log('');
-  console.log(`  Slate theme: ${red('✗')} - outside theme directory`);
-  console.log('');
 }
 
 // Custom help
 program.on('--help', () => {
-  console.log('  Troubleshooting:');
-  console.log('');
-  console.log('    If you encounter any issues, here are some preliminary steps to take:');
-  console.log('      - `git pull` latest version of Slate CLI.');
-  console.log('      - `npm install` to make sure you have all the dependencies.');
-  console.log('      - `npm link` to make sure that the symlink exists and Slate CLI is globally installed.');
-  console.log('');
+  outputSlateThemeCheck(isSlateTheme);
 });
 
 // Unknown command
 program.on('*', () => {
   console.log('');
-  console.log(`  Unknown command ${program.args.join(' ')}.`);
+  console.log(`  Unknown command ${red(program.args.join(' '))}`);
   console.log('');
   program.help();
+  outputSlateThemeCheck(isSlateTheme);
 });
 
 program.parse(process.argv);
