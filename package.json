@@ -17,7 +17,6 @@
     "cross-spawn": "5.0.0",
     "debug": "2.2.0",
     "find-root": "1.0.0",
-    "minimist": "1.2.0",
     "unzip2": "0.2.5"
   },
   "devDependencies": {
