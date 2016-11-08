@@ -9,9 +9,9 @@ export default function(program) {
     .alias('th')
     .description('Generate new theme')
     .action((name = 'theme') => {
+      const workingDirectory = process.cwd();
       const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
-      const dirName = name;
-      const root = join(process.cwd(), dirName);
+      const root = join(workingDirectory, name);
 
       if (existsSync(root)) {
         return Promise.reject(red(`  ${root} is not an empty directory`));
@@ -31,7 +31,7 @@ export default function(program) {
 
           const pkg = join(root, 'package.json');
 
-          writePackageJsonSync(pkg, dirName);
+          writePackageJsonSync(pkg, name);
 
           return startProcess('npm', ['install', '@shopify/slate-tools', '-D'], {
             cwd: root,
@@ -39,7 +39,7 @@ export default function(program) {
         })
         .then(() => {
           console.log(`  ${green('✓')} devDependencies installed`);
-          console.log(`  ${green('✓')} ${dirName} theme is ready`);
+          console.log(`  ${green('✓')} ${name} theme is ready`);
           console.log('');
 
           return;
