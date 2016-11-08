@@ -554,7 +554,7 @@
     },
     "update-notifier": {
       "version": "1.0.2",
-      "from": "update-notifier@latest",
+      "from": "update-notifier@1.0.2",
       "resolved": "https://registry.npmjs.org/update-notifier/-/update-notifier-1.0.2.tgz"
     },
     "url-parse-lax": {
