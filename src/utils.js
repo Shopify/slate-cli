@@ -100,6 +100,12 @@ export function startProcess(command, args, options) {
   });
 }
 
+/**
+ * Check for dependency name on package.json
+ *
+ * @param {string} dependencyName - The name of the dependency.
+ * @param {object} pkg - The package.json object.
+ */
 export function hasDependency(dependencyName, pkg) {
   const depKeys = ['dependencies', 'devDependencies'];
   let hasDependencies = false;
