@@ -1,4 +1,4 @@
-import {createReadStream, createWriteStream, unlink, unlinkSync, writeFileSync} from 'fs';
+import {createReadStream, createWriteStream, unlinkSync, writeFileSync} from 'fs';
 import {Extract} from 'unzip2';
 import {get} from 'https';
 import spawn from 'cross-spawn';
@@ -22,7 +22,7 @@ export function downloadFromUrl(source, target) {
     });
 
     themeZipFile.on('error', (err) => {
-      unlink(target);
+      unlinkSync(target);
       reject(err);
     });
 

@@ -1,5 +1,6 @@
 import {existsSync, mkdirSync} from 'fs'; // eslint-disable-line node/no-deprecated-api
 import {join} from 'path';
+import rimraf from 'rimraf';
 import {green, red} from 'chalk';
 import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from '../utils';
 
@@ -50,6 +51,12 @@ export default function(program) {
         })
         .catch((err) => {
           console.error(red(`  ${err}`));
+
+          rimraf(root, () => {
+            console.log('');
+            console.log('  Cleaned up theme');
+            console.log('');
+          });
         });
     });
 }
