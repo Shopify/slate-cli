@@ -18,7 +18,7 @@ export default function(program) {
         const answers = await prompt({
           type: 'input',
           name: 'dirName',
-          message: 'What is the name of the directory for your theme?',
+          message: 'What do you want to name the directory for your theme?',
           default: 'theme',
           validate: (value) => {
             const validateName = value.match(/^[a-zA-Z].*/);
