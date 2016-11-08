@@ -17,6 +17,7 @@
     "cross-spawn": "5.0.0",
     "debug": "2.2.0",
     "find-root": "1.0.0",
+    "inquirer": "1.2.2",
     "rimraf": "2.5.4",
     "unzip2": "0.2.5"
   },
@@ -25,6 +26,8 @@
     "babel-cli": "^6.11.4",
     "babel-core": "^6.13.2",
     "babel-plugin-add-shopify-header": "^1.0.0",
+    "babel-plugin-transform-async-to-generator": "6.16.0",
+    "babel-polyfill": "6.16.0",
     "babel-preset-shopify": "^13.0.0",
     "babel-register": "^6.11.6",
     "eslint": "3.3.1",
