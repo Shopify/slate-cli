@@ -14,9 +14,13 @@ export default function(program) {
       const root = join(workingDirectory, name);
 
       if (existsSync(root)) {
-        return Promise.reject(red(`  ${root} is not an empty directory`));
+        console.log('');
+        console.error(red(`  ${root} is not an empty directory`));
+        console.log('');
+        return null;
       }
 
+      console.log('');
       console.log('  This may take some time...');
       console.log('');
 
@@ -45,7 +49,7 @@ export default function(program) {
           return;
         })
         .catch((err) => {
-          console.error(err);
+          console.error(red(`  ${err}`));
         });
     });
 }
