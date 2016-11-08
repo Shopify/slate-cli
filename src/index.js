@@ -39,11 +39,9 @@ function checkForSlateTools(themeRoot) {
  */
 function outputSlateThemeCheck(isSlateTheme) {
   if (isSlateTheme) {
-    console.log('');
     console.log(`  Slate theme: ${green('✓')} inside slate theme directory`);
     console.log('');
   } else {
-    console.log('');
     console.log(`  Slate theme: ${red('✗')} switch to a slate theme directory for full list of commands`);
     console.log('');
   }
@@ -74,7 +72,7 @@ program.on('--help', () => {
 // Unknown command
 program.on('*', () => {
   console.log('');
-  console.log(`  Unknown command ${red(program.args.join(' '))}`);
+  console.log(`  Unknown command: ${red(program.args.join(' '))}`);
   console.log('');
   program.help();
   outputSlateThemeCheck(isSlateTheme);
