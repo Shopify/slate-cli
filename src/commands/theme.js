@@ -21,7 +21,7 @@ export default function(program) {
           message: 'What do you want to name the directory for your theme?',
           default: 'theme',
           validate: (value) => {
-            const validateName = value.match(/^[a-zA-Z].*/);
+            const validateName = value.match(/^[\w^&'@{}[\],$=!#().%+~\- ]+$/);
 
             if (validateName) {
               return true;
