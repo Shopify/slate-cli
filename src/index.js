@@ -3,13 +3,29 @@
 import {readdirSync} from 'fs';
 import {join, normalize} from 'path';
 import {green, red} from 'chalk';
+import findRoot from 'find-root';
 import program from 'commander';
-import {getThemeRoot, checkForSlateTools} from './theme';
+import {hasDependency} from './utils';
+
+function getThemeRoot(directory) {
+  try {
+    return normalize(findRoot(directory));
+  } catch (err) {
+    return null;
+  }
+}
+
+function checkForSlateTools(npmRoot) {
+  const pkgPath = join(npmRoot, 'package.json');
+  const pkg = require(pkgPath);
+
+  return hasDependency('@shopify/slate-tools', pkg);
+}
 
 const workingDirectory = process.cwd();
 
 // Global commands
-require('./commands/new').default(program);
+require('./commands/theme').default(program);
 require('./commands/version').default(program);
 
 // Dynamically add in theme commands

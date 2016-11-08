@@ -99,3 +99,17 @@ export function startProcess(command, args, options) {
     });
   });
 }
+
+export function hasDependency(dependencyName, pkg) {
+  const depKeys = ['dependencies', 'devDependencies'];
+  let hasDependencies = false;
+
+  for (const key of depKeys) {
+    if ((key in pkg && dependencyName in pkg[key])) {
+      hasDependencies = true;
+      break;
+    }
+  }
+
+  return hasDependencies;
+}
