@@ -79,7 +79,9 @@ export function writePackageJsonSync(target, name = 'theme') {
  *
  * @param {string} command - The command to run.
  * @param {string} args - List of string arguments.
- * @param {string} args - Options object, see: https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
+ * @param {string} args - Options object
+ *
+ * See: https://nodejs.org/api/child_process.html#child_process_child_process_spawn_command_args_options
  */
 export function startProcess(command, args, options) {
   const defaultedOptions = options || {};

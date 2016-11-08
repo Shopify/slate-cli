@@ -1,140 +1,53 @@
 #!/usr/bin/env node
 
 import {readdirSync} from 'fs';
-import {join} from 'path';
+import {join, normalize} from 'path';
+import {green, red} from 'chalk';
 import program from 'commander';
+import {getThemeRoot, checkForSlateTools} from './theme';
 
 const workingDirectory = process.cwd();
 
+// Global commands
 require('./commands/new').default(program);
+require('./commands/version').default(program);
 
-try {
-  readdirSync(`${workingDirectory}/node_modules/@shopify/slate-tools/lib/commands`)
+// Dynamically add in theme commands
+const themeRoot = getThemeRoot(workingDirectory);
+
+if (themeRoot && checkForSlateTools(themeRoot)) {
+  const slateToolsCommands = join(themeRoot, normalize('/node_modules/@shopify/slate-tools/lib/commands'));
+
+  readdirSync(slateToolsCommands)
     .filter((file) => ~file.search(/^[^\.].*\.js$/))
-    .forEach((file) => require(join(`${workingDirectory}/node_modules/@shopify/slate-tools/lib/commands/`, file))(program));
-} catch (err) {
-  console.error('Not in theme');
+    .forEach((file) => require(join(slateToolsCommands, file)).default(program));
+
+  console.log('');
+  console.log(`  Slate theme: ${green('✓')} - inside theme directory`);
+  console.log('');
+} else {
+  console.log('');
+  console.log(`  Slate theme: ${red('✗')} - outside theme directory`);
+  console.log('');
 }
 
+// Custom help
+program.on('--help', () => {
+  console.log('  Troubleshooting:');
+  console.log('');
+  console.log('    If you encounter any issues, here are some preliminary steps to take:');
+  console.log('      - `git pull` latest version of Slate CLI.');
+  console.log('      - `npm install` to make sure you have all the dependencies.');
+  console.log('      - `npm link` to make sure that the symlink exists and Slate CLI is globally installed.');
+  console.log('');
+});
+
+// Unknown command
+program.on('*', () => {
+  console.log('');
+  console.log(`  Unknown command ${program.args.join(' ')}.`);
+  console.log('');
+  program.help();
+});
 
 program.parse(process.argv);
-//
-//
-//
-//
-// import {join, normalize} from 'path';
-// import debug from 'debug';
-// import minimist from 'minimist';
-// import Theme from './theme';
-// import {startProcess} from './utils';
-//
-// const logger = debug('slate-cli:cli');
-//
-// /**
-//  * A slate cli.
-//  * @constructor
-//  */
-// class Cli {
-//   constructor(cwd) {
-//     logger('Instantiated Cli');
-//
-//     this.binName = 'slate';
-//     this.argv = minimist(process.argv.slice(2));
-//     this.pkg = require(join(__dirname, normalize('../package.json')));
-//     this.theme = new Theme(cwd);
-//
-//     if (this.checkForVersionArgument()) {
-//       this.outputVersion();
-//
-//       return;
-//     }
-//
-//     if (this.checkForNewTheme()) {
-//       this.theme.create(this.argv._[2])
-//         .catch((err) => {
-//           console.error(err);
-//         });
-//
-//       return;
-//     }
-//
-//     if (this.checkForThemeDependencies()) {
-//       this.spawnThemeCommand(cwd);
-//
-//       return;
-//     }
-//
-//     console.error('Please provide valid command.');
-//   }
-//
-//   /**
-//    * Checks for version argument in argv.
-//    *
-//    */
-//   checkForVersionArgument() {
-//     if (this.argv._.length === 0 && (this.argv.v || this.argv.version)) { // eslint-disable-line id-length
-//       logger('Found version argument');
-//       return true;
-//     }
-//
-//     logger('No version argument');
-//     return false;
-//   }
-//
-//   /**
-//    * Checks for new theme command in argv.
-//    *
-//    */
-//   checkForNewTheme() {
-//     if (this.argv._.length > 0 && this.argv._[0] === 'new' && this.argv._[1] === 'theme') {
-//       logger('Found new theme command');
-//       return true;
-//     }
-//
-//     logger('No new theme command');
-//     return false;
-//   }
-//
-//   /**
-//    * Checks for theme dependencies.
-//    *
-//    */
-//   checkForThemeDependencies() {
-//     if (this.theme.hasDependency(this.theme.tools.name)) {
-//       logger(`Theme has required dependency: ${this.theme.tools.name}`);
-//       return true;
-//     }
-//
-//     console.error(`Theme is missing dependency ${this.theme.tools.name}. Try \`npm install ${this.theme.tools.name}\`.`);
-//     return false;
-//   }
-//
-//   /**
-//    * Ouputs version info about slate-cli and slate-tools
-//    *
-//    */
-//   outputVersion() {
-//     console.log(`  ${this.binName}       ${this.pkg.version}`);
-//
-//     if (this.theme.hasDependency(this.theme.tools.name) && this.theme.tools.version) {
-//       console.log(`  ${this.theme.tools.binName} ${this.theme.tools.version}`);
-//       return;
-//     }
-//
-//     console.log(`  ${this.theme.tools.binName} n/a - not inside a Slate theme directory`);
-//   }
-//
-//   /**
-//    * Starts theme command on local slate-tools
-//    *
-//    */
-//   spawnThemeCommand() {
-//     logger(`Spawning theme command to: ${this.theme.tools.bin}`);
-//     startProcess(this.theme.tools.bin, process.argv.slice(2));
-//   }
-// }
-//
-// const workingDirectory = process.cwd();
-// const slate = new Cli(workingDirectory);
-//
-// export default slate;

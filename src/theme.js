@@ -1,30 +1,43 @@
-import {
-  existsSync, // eslint-disable-line node/no-deprecated-api
-  mkdirSync,
-} from 'fs';
-import {
-  green,
-  red,
-} from 'chalk';
-import {
-  join,
-} from 'path';
+import {existsSync, mkdirSync} from 'fs'; // eslint-disable-line node/no-deprecated-api
+import {green, red} from 'chalk';
+import {join, normalize} from 'path';
+import findRoot from 'find-root';
 import debug from 'debug';
-import {
-  downloadFromUrl,
-  unzip,
-  startProcess,
-  writePackageJsonSync,
-} from './utils';
+import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from './utils';
 
 const logger = debug('slate-cli:theme');
-const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
 
-/**
- * A slate theme.
- * @constructor
- */
+function hasDependency(dependencyName, pkg) {
+  const depKeys = ['dependencies', 'devDependencies'];
+  let hasDependencies = false;
+
+  for (const key of depKeys) {
+    if ((key in pkg && dependencyName in pkg[key])) {
+      hasDependencies = true;
+      break;
+    }
+  }
+
+  return hasDependencies;
+}
+
+export function getThemeRoot(directory) {
+  try {
+    return normalize(findRoot(directory));
+  } catch (err) {
+    return null;
+  }
+}
+
+export function checkForSlateTools(npmRoot) {
+  const pkgPath = join(npmRoot, 'package.json');
+  const pkg = require(pkgPath);
+
+  return hasDependency('@shopify/slate-tools', pkg);
+}
+
 export function create(name = 'theme') {
+  const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
   const dirName = name;
   const root = join(process.cwd(), dirName);
 
@@ -60,5 +73,8 @@ export function create(name = 'theme') {
       console.log('');
 
       return;
+    })
+    .catch((err) => {
+      console.error(err);
     });
 }
