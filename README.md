@@ -86,7 +86,7 @@ Command                      | Usage
 ---                          | ---
 [theme](#theme)              | `slate theme [name]`
 [help](#help)                | `slate -h`
-[version](#version)          | `slate -V`
+[version](#version)          | `slate -v`
 
 ### theme
 ```
@@ -104,7 +104,7 @@ Outputs help information for Slate (`slate --help`) or a specific command (`slat
 
 ### version
 ```
-slate -V, slate --version
+slate -v, slate --version
 ```
 
 Outputs the current version of Slate CLI installed on your system.
