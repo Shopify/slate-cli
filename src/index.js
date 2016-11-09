@@ -35,12 +35,18 @@ function checkForSlateTools(themeRoot) {
 
 /**
  * Output version information
+ *
+ * @param {object} pkg - The package.json object
  */
-function outputVersion() {
-  const currentDirectory = __dirname;
-  const pkg = require(join(currentDirectory, normalize('../package.json')));
-
+function outputVersion(pkg) {
   console.log(pkg.version);
+}
+
+/**
+ * Override default value undefined to true
+ */
+function defaultToTrue() {
+  return true;
 }
 
 /**
@@ -84,7 +90,7 @@ if (isSlateTheme) {
 
 // custom version option
 program
-  .option('-v, --version', 'output the version number');
+  .option('-v, --version', 'output the version number', defaultToTrue);
 
 // Custom help
 program.on('--help', () => {
@@ -104,5 +110,5 @@ program.parse(process.argv);
 
 // check for version option
 if (program.version) {
-  outputVersion();
+  outputVersion(pkg);
 }
