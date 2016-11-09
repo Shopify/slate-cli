@@ -34,6 +34,16 @@ function checkForSlateTools(themeRoot) {
 }
 
 /**
+ * Output version information
+ */
+function outputVersion() {
+  const currentDirectory = __dirname;
+  const pkg = require(join(currentDirectory, normalize('../package.json')));
+
+  console.log(pkg.version);
+}
+
+/**
  * Output information if/else slate theme directory.
  *
  * @param {boolean} isSlateTheme - Whether in slate theme or not.
@@ -73,6 +83,10 @@ if (isSlateTheme) {
     .forEach((file) => require(join(slateToolsCommands, file)).default(program));
 }
 
+// custom version option
+program
+  .option('-v, --version', 'output the version number');
+
 // Custom help
 program.on('--help', () => {
   outputSlateThemeCheck(isSlateTheme);
@@ -88,3 +102,8 @@ program.on('*', () => {
 });
 
 program.parse(process.argv);
+
+// check for version option
+if (program.version) {
+  outputVersion();
+}
