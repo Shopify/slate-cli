@@ -69,7 +69,6 @@ updateNotifier({
 
 // Global commands
 require('./commands/theme').default(program);
-require('./commands/version').default(program);
 
 // Dynamically add in theme commands
 const themeRoot = getThemeRoot(workingDirectory);
