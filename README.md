@@ -18,7 +18,7 @@ and speed up the process of developing, testing and deploying themes to Shopify 
 #### 1. Get the latest version
 
 ```shell
-npm install @shopify/slate --global
+npm install -g @shopify/slate
 ```
 
 _note: if you get an **`EACCES`** error, refer to [Fixing npm permissions](https://docs.npmjs.com/getting-started/fixing-npm-permissions)_
