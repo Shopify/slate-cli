@@ -41,10 +41,10 @@ function checkForSlateTools(themeRoot) {
  */
 function outputSlateThemeCheck(isSlateTheme) {
   if (isSlateTheme) {
-    console.log(`  Slate theme: ${green(figures('✓'))} inside slate theme directory`);
+    console.log(`  Slate theme: ${green(figures.tick)} inside slate theme directory`);
     console.log('');
   } else {
-    console.log(`  Slate theme: ${red(figures('✗'))} switch to a slate theme directory for full list of commands`);
+    console.log(`  Slate theme: ${red(figures.cross)} switch to a slate theme directory for full list of commands`);
     console.log('');
   }
 }
