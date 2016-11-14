@@ -2,7 +2,7 @@
 
 import {readdirSync} from 'fs';
 import {join, normalize} from 'path';
-import {green, red} from 'chalk';
+import {yellow, red} from 'chalk';
 import figures from 'figures';
 import findRoot from 'find-root';
 import updateNotifier from 'update-notifier';
@@ -41,12 +41,13 @@ function checkForSlateTools(themeRoot) {
  */
 function outputSlateThemeCheck(isSlateTheme) {
   if (isSlateTheme) {
-    console.log(`  Slate theme: ${green(figures.tick)} inside slate theme directory`);
-    console.log('');
-  } else {
-    console.log(`  Slate theme: ${red(figures.cross)} switch to a slate theme directory for full list of commands`);
-    console.log('');
+    return;
   }
+
+  console.log('');
+  console.log(yellow(`  ${figures.cross} You are not in a slate theme directory`));
+  console.log('    For a full list of commands, generate a new theme or switch to an existing slate theme directory');
+  console.log('');
 }
 
 const currentDirectory = __dirname;
@@ -74,18 +75,30 @@ if (isSlateTheme) {
     .forEach((file) => require(join(slateToolsCommands, file)).default(program));
 }
 
+
 // Custom help
-program.on('--help', () => {
+program.on('--helpStart', () => {
   outputSlateThemeCheck(isSlateTheme);
+});
+
+program.on('--helpEnd', () => {
+  console.log('  Docs:');
+  console.log('');
+  console.log('     https://shopify.github.io/slate/');
+  console.log('');
 });
 
 // Unknown command
 program.on('*', () => {
   console.log('');
-  console.log(`  Unknown command: ${red(program.args.join(' '))}`);
+  console.log(red(`  ${figures.cross} Unknown command: ${program.args.join(' ')}`));
   console.log('');
   program.help();
-  outputSlateThemeCheck(isSlateTheme);
 });
 
 program.parse(process.argv);
+
+// output help if no commands or options passed
+if (!process.argv.slice(2).length) {
+  program.help();
+}
