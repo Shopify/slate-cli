@@ -34,14 +34,16 @@
     "babel-register": "^6.11.6",
     "eslint": "3.3.1",
     "eslint-plugin-node": "2.1.2",
-    "eslint-plugin-shopify": "14.0.2"
+    "eslint-plugin-shopify": "14.0.2",
+    "mocha": "3.1.2"
   },
   "scripts": {
     "clean": "rimraf lib/",
     "lint": "eslint --max-warnings 0 -c .eslintrc.json src/",
     "lint-allow-warning": "eslint -c .eslintrc.json src/",
     "start": "npm run clean && babel -w -d lib/ src/",
-    "test": "npm run lint",
+    "test": "npm run lint && npm run mocha",
+    "mocha": "mocha --compilers js:babel-register -u tdd test/index.js",
     "prepublish": "npm test && npm run clean && babel -d lib/ src/"
   },
   "keywords": [
