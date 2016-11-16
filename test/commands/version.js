@@ -6,7 +6,7 @@ const currentDirectory = __dirname;
 const pkg = require(join(currentDirectory, normalize('../../package.json')));
 
 export default () => {
-  test('program version should match packge.json version', (done) => {
+  test('the program version should match packge.json version', (done) => {
     require(join(currentDirectory, normalize('../../src/commands/version'))).default(program);
 
     assert.equal(program.version(), pkg.version, 'version matched');
