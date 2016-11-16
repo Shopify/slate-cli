@@ -2795,6 +2795,12 @@
       "from": "package-json@>=2.0.0 <3.0.0",
       "resolved": "https://registry.npmjs.org/package-json/-/package-json-2.4.0.tgz"
     },
+    "parallelshell": {
+      "version": "2.0.0",
+      "from": "parallelshell@latest",
+      "resolved": "https://registry.npmjs.org/parallelshell/-/parallelshell-2.0.0.tgz",
+      "dev": true
+    },
     "parse-glob": {
       "version": "3.0.4",
       "from": "parse-glob@>=3.0.4 <4.0.0",
