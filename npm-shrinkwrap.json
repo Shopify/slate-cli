@@ -2672,6 +2672,12 @@
         }
       }
     },
+    "mock-stdin": {
+      "version": "0.3.1",
+      "from": "mock-stdin@latest",
+      "resolved": "https://registry.npmjs.org/mock-stdin/-/mock-stdin-0.3.1.tgz",
+      "dev": true
+    },
     "ms": {
       "version": "0.7.1",
       "from": "ms@0.7.1",

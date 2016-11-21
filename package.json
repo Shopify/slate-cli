@@ -36,6 +36,7 @@
     "eslint-plugin-node": "2.1.2",
     "eslint-plugin-shopify": "14.0.2",
     "mocha": "3.1.2",
+    "mock-stdin": "0.3.1",
     "parallelshell": "2.0.0"
   },
   "scripts": {
