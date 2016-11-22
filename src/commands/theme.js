@@ -1,5 +1,5 @@
 import 'babel-polyfill';
-import {existsSync, mkdirSync} from 'fs'; // eslint-disable-line node/no-deprecated-api
+import {existsSync, mkdirSync} from 'fs';
 import {join} from 'path';
 import {prompt} from 'inquirer';
 import rimraf from 'rimraf';
@@ -11,7 +11,7 @@ export default function(program) {
     .command('theme [name]')
     .alias('t')
     .description('Generates a new theme directory containing Slate\'s theme boilerplate.')
-    .action(async function(name) {
+    .action(async (name) => {
       let dirName = name;
 
       if (!dirName) {
@@ -71,7 +71,7 @@ export default function(program) {
           console.log(`  ${green('✓')} ${dirName} theme is ready`);
           console.log('');
 
-          return;
+          return null;
         })
         .catch((err) => {
           console.error(red(`  ${err}`));
