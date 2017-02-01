@@ -85,6 +85,7 @@ npm install @shopify/slate --global
 Command                      | Usage
 ---                          | ---
 [theme](#theme)              | `slate theme [name]`
+[migrate](#migrate)          | `slate migrate`
 [help](#help)                | `slate -h`
 [version](#version)          | `slate -v`
 
@@ -94,6 +95,14 @@ slate theme [name]
 ```
 
 Generates a theme with build tools. The name argument is required and you will be prompted to enter it if it's not provided.
+
+### migrate
+```
+slate migrate
+```
+
+Convert an existing theme to work with Slate tasks. Run this command from your project root to install dependencies and your theme files moved to to a `src/` directory. Use [theme commands](#theme-commands) to start developing. An empty `styles/` and `scripts/` folder will also be created.
+
 
 ### help
 ```
