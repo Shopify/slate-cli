@@ -78,29 +78,27 @@ export default function(program) {
       const whitelistFiles = files.filter(isShopifyThemeWhitelistedDir);
       const promises = whitelistFiles.map(movePromiseFactory);
 
-      Promise.all(promises)
-        .then(() => {
-          console.log('');
-          console.log(`  ${green('✓')} Migration to src/ completed`);
-          console.log('');
-          console.log('  Installing Slate dependencies...');
-          console.log('');
-          return startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {cwd: workingDirectory});
-        })
-        .then(() => {
-          console.log('');
-          console.log(`  ${green('✓')} Slate dependencies installed`);
-          console.log('');
-          console.log(`  ${green('✓')} Migration complete!`);
-          console.log('');
+      try {
+        await Promise.all(promises);
 
-          return null;
-        })
-        .catch((err) => {
-          console.error(red(`  ${err}`));
-          console.log('');
-          console.error(red('  Migration failed. Please check src/ directory'));
-          console.log('');
-        });
+        console.log('');
+        console.log(`  ${green('✓')} Migration to src/ completed`);
+        console.log('');
+        console.log('  Installing Slate dependencies...');
+        console.log('');
+
+        await startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {cwd: workingDirectory});
+
+        console.log('');
+        console.log(`  ${green('✓')} Slate dependencies installed`);
+        console.log('');
+        console.log(`  ${green('✓')} Migration complete!`);
+        console.log('');
+      } catch (err) {
+        console.error(red(`  ${err}`));
+        console.log('');
+        console.error(red('  Migration failed. Please check src/ directory'));
+        console.log('');
+      }
     });
 }
