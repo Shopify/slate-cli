@@ -2,7 +2,8 @@ import 'babel-polyfill';
 import {existsSync, mkdirSync, readdirSync} from 'fs';
 import {join} from 'path';
 import {prompt} from 'inquirer';
-import {green, red} from 'chalk';
+import {green, red, yellow} from 'chalk';
+import figures from 'figures';
 import {startProcess, writePackageJsonSync, move, isShopifyTheme, isShopifyThemeWhitelistedDir} from '../utils';
 
 export default function(program) {
@@ -23,9 +24,9 @@ export default function(program) {
 
       if (!isShopifyTheme(workingDirectory)) {
         console.log('');
-        console.error(red('  Your theme doesn\'t have /layout/theme.liquid. We have to assume your theme isn\'t a Shopify theme'));
+        console.error(yellow('  Your theme doesn\'t have /layout/theme.liquid. We have to assume your theme isn\'t a Shopify theme'));
         console.log('');
-        console.error(red('  Migration failed'));
+        console.error(red(`  ${figures.cross} Migration failed`));
         console.log('');
         return;
       }
@@ -38,24 +39,24 @@ export default function(program) {
       const scriptsDir = join(srcDir, 'scripts');
 
       console.log('');
-      console.log(`  ${green('✓')} Your theme is a valid Shopify theme`);
+      console.log(`  ${green(figures.tick)} Your theme is a valid Shopify theme`);
       console.log('');
 
       if (existsSync(srcDir)) {
-        console.error(red('  Your theme already has a src directory'));
+        console.error(yellow('  Your theme already has a src directory'));
         console.log('');
-        console.error(red('  Migration failed'));
+        console.error(red(`  ${figures.cross} Migration failed`));
         console.log('');
         return;
       }
 
       if (!existsSync(configYml)) {
-        console.error(red('  Your theme is missing config.yml in the root directory. Please add before using Slate commands'));
-        console.error(red('  Example config.yml here: https://github.com/Shopify/slate/blob/master/config-sample.yml'));
+        console.error(yellow('  Your theme is missing config.yml in the root directory. Please add before using Slate commands'));
+        console.error(yellow('  Example config.yml here: https://github.com/Shopify/slate/blob/master/config-sample.yml'));
         console.log('');
       }
 
-      console.log(`  ${green('✓')} Migration checks completed`);
+      console.log(`  ${green(figures.tick)} Migration checks completed`);
       console.log('');
       console.log('  Starting migration...');
       console.log('');
@@ -82,7 +83,7 @@ export default function(program) {
         await Promise.all(promises);
 
         console.log('');
-        console.log(`  ${green('✓')} Migration to src/ completed`);
+        console.log(`  ${green(figures.tick)} Migration to src/ completed`);
         console.log('');
         console.log('  Installing Slate dependencies...');
         console.log('');
@@ -90,14 +91,14 @@ export default function(program) {
         await startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {cwd: workingDirectory});
 
         console.log('');
-        console.log(`  ${green('✓')} Slate dependencies installed`);
+        console.log(`  ${green(figures.tick)} Slate dependencies installed`);
         console.log('');
-        console.log(`  ${green('✓')} Migration complete!`);
+        console.log(`  ${green(figures.tick)} Migration complete!`);
         console.log('');
       } catch (err) {
         console.error(red(`  ${err}`));
         console.log('');
-        console.error(red('  Migration failed. Please check src/ directory'));
+        console.error(red(`  ${figures.cross} Migration failed. Please check src/ directory`));
         console.log('');
       }
     });
