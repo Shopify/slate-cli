@@ -101,8 +101,9 @@ Generates a theme with build tools. The name argument is required and you will b
 slate migrate
 ```
 
-Convert an existing theme to work with Slate tasks. Run this command from your project root to install dependencies and your theme files moved to to a `src/` directory. Use [theme commands](#theme-commands) to start developing. An empty `styles/` and `scripts/` folder will also be created.
+Converts an existing theme to work with Slate. Run this command from your project root to install dependencies and your theme files moved to to a `src/` directory. Use [theme commands](#theme-commands) to start developing. An empty `styles/` and `scripts/` folder will also be created.
 
+You need to create a private app and `config.yml` file to sync with your online store. Start at #3 on the [getting started page](https://shopify.github.io/slate/) to set these up.
 
 ### help
 ```
