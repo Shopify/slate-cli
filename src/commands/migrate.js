@@ -15,7 +15,7 @@ export default function(program) {
       const answers = await prompt({
         type: 'confirm',
         name: 'confirmation',
-        message: 'Warning! This will move files in your theme. Are you sure you want to proceed?',
+        message: 'Warning! This will change your theme\'s folder structure. Are you sure you want to proceed?',
       });
 
       if (!answers.confirmation) {
@@ -24,7 +24,7 @@ export default function(program) {
 
       if (!isShopifyTheme(workingDirectory)) {
         console.log('');
-        console.error(yellow('  Your theme doesn\'t have /layout/theme.liquid. We have to assume your theme isn\'t a Shopify theme'));
+        console.error(yellow('  The directory doesn\'t have /layout/theme.liquid. We have to assume this isn\'t a Shopify theme'));
         console.log('');
         console.error(red(`  ${figures.cross} Migration failed`));
         console.log('');
