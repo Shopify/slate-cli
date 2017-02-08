@@ -158,5 +158,5 @@ export function isShopifyTheme(directory) {
  */
 export function isShopifyThemeWhitelistedDir(directory) {
   const whitelist = ['assets', 'layout', 'config', 'locales', 'sections', 'snippets', 'templates'];
-  return whitelist.indexOf(directory) > 0;
+  return whitelist.indexOf(directory) > -1;
 }

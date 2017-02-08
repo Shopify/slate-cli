@@ -24,7 +24,7 @@ export default function(program) {
 
       if (!isShopifyTheme(workingDirectory)) {
         console.log('');
-        console.error(yellow('  The directory doesn\'t have /layout/theme.liquid. We have to assume this isn\'t a Shopify theme'));
+        console.error(yellow('  The current directory doesn\'t have /layout/theme.liquid. We have to assume this isn\'t a Shopify theme'));
         console.log('');
         console.error(red(`  ${figures.cross} Migration failed`));
         console.log('');
@@ -43,17 +43,12 @@ export default function(program) {
       console.log('');
 
       if (existsSync(srcDir)) {
-        console.error(yellow('  Your theme already has a src directory'));
+        console.error(yellow('  Migrate task could not create a new src directory since your theme already has one'));
+        console.error(yellow('  Please remove or rename your current src directory'));
         console.log('');
         console.error(red(`  ${figures.cross} Migration failed`));
         console.log('');
         return;
-      }
-
-      if (!existsSync(configYml)) {
-        console.error(yellow('  Your theme is missing config.yml in the root directory. Please add before using Slate commands'));
-        console.error(yellow('  Example config.yml here: https://github.com/Shopify/slate/blob/master/config-sample.yml'));
-        console.log('');
       }
 
       console.log(`  ${green(figures.tick)} Migration checks completed`);
@@ -93,6 +88,13 @@ export default function(program) {
         console.log('');
         console.log(`  ${green(figures.tick)} Slate dependencies installed`);
         console.log('');
+
+        if (!existsSync(configYml)) {
+          console.error(yellow('  Your theme is missing config.yml in the root directory. Please add before using Slate commands'));
+          console.error(yellow('  Example config.yml here: https://github.com/Shopify/slate/blob/master/config-sample.yml'));
+          console.log('');
+        }
+
         console.log(`  ${green(figures.tick)} Migration complete!`);
         console.log('');
       } catch (err) {
