@@ -9,7 +9,6 @@ import {startProcess, writePackageJsonSync, move, isShopifyTheme, isShopifyTheme
 export default function(program) {
   program
     .command('migrate')
-    .alias('m')
     .description('Converts an existing theme to work with Slate.')
     .action(async () => {
       const workingDirectory = process.cwd();
