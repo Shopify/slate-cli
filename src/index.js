@@ -65,8 +65,8 @@ require('./commands/migrate').default(program);
 require('./commands/version').default(program);
 
 // Dynamically add in theme commands
-const themeRoot = getThemeRoot(workingDirectory);
-const isSlateTheme = (themeRoot && checkForSlateTools(themeRoot));
+export const themeRoot = getThemeRoot(workingDirectory);
+export const isSlateTheme = (themeRoot && checkForSlateTools(themeRoot));
 
 if (isSlateTheme) {
   const slateToolsCommands = join(themeRoot, normalize('/node_modules/@shopify/slate-tools/lib/commands'));
