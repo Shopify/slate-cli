@@ -3,7 +3,7 @@
   "version": "0.10.0",
   "description": "Slate CLI tools",
   "bin": {
-    "slate": "lib/index.js"
+    "slate": "lib/commander.js"
   },
   "main": "lib/index.js",
   "engines": {

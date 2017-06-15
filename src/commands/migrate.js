@@ -1,4 +1,3 @@
-import 'babel-polyfill';
 import {existsSync, mkdirSync, readdirSync} from 'fs';
 import {join} from 'path';
 import {prompt} from 'inquirer';
