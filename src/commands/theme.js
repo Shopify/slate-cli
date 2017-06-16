@@ -1,5 +1,5 @@
 import {existsSync, mkdirSync} from 'fs';
-import {join} from 'path';
+import {join, normalize} from 'path';
 import {prompt} from 'inquirer';
 import rimraf from 'rimraf';
 import {green, red} from 'chalk';
@@ -11,30 +11,9 @@ const defaultOptions = {
   yarn: false,
 };
 
-export async function theme(name, options = defaultOptions) {
-  let dirName = name;
-
-  if (!dirName) {
-    const answers = await prompt({
-      type: 'input',
-      name: 'dirName',
-      message: 'Please enter a directory name for your theme (a new folder will be created):',
-      default: 'theme',
-      validate: (value) => {
-        const validateName = value.match(/^[\w^'@{}[\],$=!#().%+~\- ]+$/);
-
-        if (validateName) {
-          return true;
-        }
-
-        return 'A directory name is required.';
-      },
-    });
-
-    dirName = answers.dirName;
-  }
-
-  const workingDirectory = options.cwd || process.cwd();
+export async function theme(dirName, options = defaultOptions) {
+  process.chdir(normalize(options.cwd));
+  const workingDirectory = process.cwd();
   const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
   const root = join(workingDirectory, dirName);
 
@@ -96,5 +75,29 @@ export default function(program) {
     .alias('t')
     .description('Generates a new theme directory containing Slate\'s theme boilerplate.')
     .option('--yarn', 'installs theme dependencies with yarn instead of npm')
-    .action(theme);
+    .action(async (name, options) => {
+      let dirName = name;
+
+      if (!dirName) {
+        const answers = await prompt({
+          type: 'input',
+          name: 'dirName',
+          message: 'Please enter a directory name for your theme (a new folder will be created):',
+          default: 'theme',
+          validate: (value) => {
+            const validateName = value.match(/^[\w^'@{}[\],$=!#().%+~\- ]+$/);
+
+            if (validateName) {
+              return true;
+            }
+
+            return 'A directory name is required.';
+          },
+        });
+
+        dirName = answers.dirName;
+      }
+
+      await theme(dirName, options);
+    });
 }

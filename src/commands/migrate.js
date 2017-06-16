@@ -1,5 +1,5 @@
 import {existsSync, mkdirSync, readdirSync} from 'fs';
-import {join} from 'path';
+import {join, normalize} from 'path';
 import {prompt} from 'inquirer';
 import {green, red, yellow} from 'chalk';
 import figures from 'figures';
@@ -11,7 +11,8 @@ const defaultOptions = {
 };
 
 export async function migrate(options = defaultOptions) {
-  const workingDirectory = options.cwd || process.cwd();
+  process.chdir(normalize(options.cwd));
+  const workingDirectory = process.cwd();
 
   if (!isShopifyTheme(workingDirectory)) {
     console.log('');
