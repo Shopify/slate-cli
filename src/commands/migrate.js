@@ -79,11 +79,11 @@ export async function migrate(options = {}) {
     console.log('');
 
     if (options.yarn) {
-      await startProcess('yarn', ['add', '@shopify/slate-tools', '--dev', '--exact'], {
+      await startProcess('yarn', ['add', '@shopify/slate-tools@volcanic', '--dev', '--exact'], {
         cwd: workingDirectory,
       });
     } else {
-      await startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {
+      await startProcess('npm', ['install', '@shopify/slate-tools@volcanic', '--save-dev', '--save-exact'], {
         cwd: workingDirectory,
       });
     }
