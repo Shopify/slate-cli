@@ -1,6 +1,6 @@
 {
   "name": "@shopify/slate",
-  "version": "0.10.1-volcanic",
+  "version": "0.10.2-volcanic",
   "description": "Slate CLI tools",
   "bin": {
     "slate": "lib/commander.js"

@@ -5,13 +5,8 @@ import {green, red, yellow} from 'chalk';
 import figures from 'figures';
 import {downloadFromUrl, startProcess, writePackageJsonSync, move, isShopifyTheme, isShopifyThemeWhitelistedDir} from '../utils';
 
-const defaultOptions = {
-  cwd: process.cwd(),
-  yarn: false,
-};
-
-export async function migrate(options = defaultOptions) {
-  process.chdir(normalize(options.cwd));
+export async function migrate(options = {}) {
+  process.chdir(normalize(options.cwd || process.cwd()));
   const workingDirectory = process.cwd();
 
   if (!isShopifyTheme(workingDirectory)) {
@@ -20,7 +15,11 @@ export async function migrate(options = defaultOptions) {
     console.log('');
     console.error(red(`  ${figures.cross} Migration failed`));
     console.log('');
-    return;
+
+    return {
+      errors: ['not a Shopify theme'],
+      message: 'error',
+    };
   }
 
   const configYml = join(workingDirectory, 'config.yml');
@@ -40,7 +39,11 @@ export async function migrate(options = defaultOptions) {
     console.log('');
     console.error(red(`  ${figures.cross} Migration failed`));
     console.log('');
-    return;
+
+    return {
+      errors: ['src directory already exists'],
+      message: 'error',
+    };
   }
 
   console.log(`  ${green(figures.tick)} Migration checks completed`);
@@ -101,11 +104,21 @@ export async function migrate(options = defaultOptions) {
 
     console.log(`  ${green(figures.tick)} Migration complete!`);
     console.log('');
+
+    return {
+      errors: null,
+      message: 'success',
+    };
   } catch (err) {
     console.error(red(`  ${err}`));
     console.log('');
     console.error(red(`  ${figures.cross} Migration failed. Please check src/ directory`));
     console.log('');
+
+    return {
+      errors: ['migration failed'],
+      message: 'error',
+    };
   }
 }
 
@@ -114,7 +127,7 @@ export default function(program) {
     .command('migrate')
     .description('Converts an existing theme to work with Slate.')
     .option('--yarn', 'installs theme dependencies with yarn instead of npm')
-    .action(async (options) => {
+    .action(async (options = {}) => {
       const answers = await prompt({
         type: 'confirm',
         name: 'confirmation',

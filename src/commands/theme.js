@@ -6,13 +6,15 @@ import {green, red} from 'chalk';
 import figures from 'figures';
 import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from '../utils';
 
-const defaultOptions = {
-  cwd: process.cwd(),
-  yarn: false,
-};
+export async function theme(dirName, options = {}) {
+  if (!dirName) {
+    return {
+      errors: ['dirName is required'],
+      message: 'error',
+    };
+  }
 
-export async function theme(dirName, options = defaultOptions) {
-  process.chdir(normalize(options.cwd));
+  process.chdir(normalize(options.cwd || process.cwd()));
   const workingDirectory = process.cwd();
   const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
   const root = join(workingDirectory, dirName);
@@ -21,7 +23,11 @@ export async function theme(dirName, options = defaultOptions) {
     console.log('');
     console.error(red(`  ${figures.cross} The ${root} directory already exists`));
     console.log('');
-    return null;
+
+    return {
+      errors: [`${root} directory already exists`],
+      message: 'error',
+    };
   }
 
   console.log('');
@@ -30,43 +36,47 @@ export async function theme(dirName, options = defaultOptions) {
 
   mkdirSync(root);
 
-  return downloadFromUrl(s3Url, join(root, 'slate-theme.zip'))
-    .then((themeZipFile) => {
-      return unzip(themeZipFile, root);
-    })
-    .then(() => {
-      console.log(`  ${green(figures.tick)} slate-theme download completed`);
+  try {
+    const themeZipFile = await downloadFromUrl(s3Url, join(root, 'slate-theme.zip'));
+    await unzip(themeZipFile, root);
+    console.log(`  ${green(figures.tick)} slate-theme download completed`);
 
-      const pkg = join(root, 'package.json');
+    const pkg = join(root, 'package.json');
 
-      writePackageJsonSync(pkg, dirName);
+    writePackageJsonSync(pkg, dirName);
 
-      if (options.yarn) {
-        return startProcess('yarn', ['add', '@shopify/slate-tools', '--dev', '--exact'], {
-          cwd: root,
-        });
-      } else {
-        return startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {
-          cwd: root,
-        });
-      }
-    })
-    .then(() => {
-      console.log(`  ${green(figures.tick)} devDependencies installed`);
-      console.log(`  ${green(figures.tick)} ${dirName} theme is ready`);
-      console.log('');
-
-      return null;
-    })
-    .catch((err) => {
-      console.error(red(`  ${err}`));
-
-      rimraf(root, () => {
-        console.log('');
-        console.log('  Cleaned up theme');
-        console.log('');
+    if (options.yarn) {
+      await startProcess('yarn', ['add', '@shopify/slate-tools', '--dev', '--exact'], {
+        cwd: root,
       });
+    } else {
+      await startProcess('npm', ['install', '@shopify/slate-tools', '--save-dev', '--save-exact'], {
+        cwd: root,
+      });
+    }
+
+    console.log(`  ${green(figures.tick)} devDependencies installed`);
+    console.log(`  ${green(figures.tick)} ${dirName} theme is ready`);
+    console.log('');
+
+    return {
+      errors: null,
+      message: 'success',
+    };
+  } catch (err) {
+    console.error(red(`  ${err}`));
+
+    rimraf(root, () => {
+      console.log('');
+      console.log('  Cleaned up theme');
+      console.log('');
     });
+
+    return {
+      errors: [err],
+      message: 'error',
+    };
+  }
 }
 
 export default function(program) {
@@ -75,7 +85,7 @@ export default function(program) {
     .alias('t')
     .description('Generates a new theme directory containing Slate\'s theme boilerplate.')
     .option('--yarn', 'installs theme dependencies with yarn instead of npm')
-    .action(async (name, options) => {
+    .action(async (name, options = {}) => {
       let dirName = name;
 
       if (!dirName) {
