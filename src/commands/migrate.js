@@ -5,17 +5,13 @@ import {green, red, yellow} from 'chalk';
 import figures from 'figures';
 import {downloadFromUrl, startProcess, writePackageJsonSync, move, isShopifyTheme, isShopifyThemeWhitelistedDir} from '../utils';
 
-export async function migrate(options = {}) {
-  const workingDirectory = process.cwd();
-  const answers = await prompt({
-    type: 'confirm',
-    name: 'confirmation',
-    message: 'Warning! This will change your theme\'s folder structure. Are you sure you want to proceed?',
-  });
+const defaultOptions = {
+  cwd: process.cwd(),
+  yarn: false,
+};
 
-  if (!answers.confirmation) {
-    return;
-  }
+export async function migrate(options = defaultOptions) {
+  const workingDirectory = options.cwd || process.cwd();
 
   if (!isShopifyTheme(workingDirectory)) {
     console.log('');
@@ -117,5 +113,17 @@ export default function(program) {
     .command('migrate')
     .description('Converts an existing theme to work with Slate.')
     .option('--yarn', 'installs theme dependencies with yarn instead of npm')
-    .action(migrate);
+    .action(async (options) => {
+      const answers = await prompt({
+        type: 'confirm',
+        name: 'confirmation',
+        message: 'Warning! This will change your theme\'s folder structure. Are you sure you want to proceed?',
+      });
+
+      if (!answers.confirmation) {
+        return;
+      }
+
+      await migrate(options);
+    });
 }

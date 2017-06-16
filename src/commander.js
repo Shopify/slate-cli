@@ -1,6 +1,3 @@
-#!/usr/bin/env node
-
-import 'babel-polyfill';
 import {readdirSync} from 'fs';
 import {join, normalize} from 'path';
 import {yellow, red} from 'chalk';
@@ -57,7 +54,8 @@ const pkg = require(join(currentDirectory, normalize('../package.json')));
 
 updateNotifier({
   pkg,
-  updateCheckInterval: 1000 * 60 * 60 * 24 * 7, // 1 week
+  // 1 week
+  updateCheckInterval: 1000 * 60 * 60 * 24 * 7,
 }).notify();
 
 // Global commands

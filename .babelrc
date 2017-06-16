@@ -6,7 +6,7 @@
     ["transform-runtime"],
     ["transform-async-to-generator"],
     ["add-shopify-header", {
-      "files": ["src/index.js"]
+      "files": ["src/index.js", "src/commander.js"]
     }]
   ]
 }

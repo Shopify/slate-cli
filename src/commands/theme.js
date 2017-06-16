@@ -6,7 +6,12 @@ import {green, red} from 'chalk';
 import figures from 'figures';
 import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from '../utils';
 
-export async function theme(name, options = {}) {
+const defaultOptions = {
+  cwd: process.cwd(),
+  yarn: false,
+};
+
+export async function theme(name, options = defaultOptions) {
   let dirName = name;
 
   if (!dirName) {
@@ -29,7 +34,7 @@ export async function theme(name, options = {}) {
     dirName = answers.dirName;
   }
 
-  const workingDirectory = process.cwd();
+  const workingDirectory = options.cwd || process.cwd();
   const s3Url = 'https://sdks.shopifycdn.com/slate/latest/slate-src.zip';
   const root = join(workingDirectory, dirName);
 
