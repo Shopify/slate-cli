@@ -5,7 +5,7 @@ import {prompt} from 'inquirer';
 import rimraf from 'rimraf';
 import {green, red} from 'chalk';
 import figures from 'figures';
-import {downloadFromUrl, unzip, startProcess, writePackageJsonSync} from '../utils';
+import {downloadFromUrl, unzip, renameFile, startProcess, writePackageJsonSync} from '../utils';
 
 export default function(program) {
   program
@@ -80,6 +80,28 @@ export default function(program) {
           console.log('');
 
           return null;
+        })
+        .then(async () => {
+
+          const sampleFiles = [
+            {oldFile: 'config-sample.yml', newFile: 'config.yml', dir: root},
+            {oldFile: '.gitignore-sample', newFile: '.gitignore', dir: root},
+          ];
+
+          function renamePromiseFactory({oldFile, newFile, dir}) {
+            return renameFile(join(dir, oldFile), join(dir, newFile));
+          }
+
+          const promises = sampleFiles.map(renamePromiseFactory);
+
+          try {
+            await Promise.all(promises);
+          } catch (err) {
+            console.error(red(`  ${err}`));
+          }
+
+          return null;
+
         })
         .catch((err) => {
           console.error(red(`  ${err}`));

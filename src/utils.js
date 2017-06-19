@@ -1,4 +1,4 @@
-import {createReadStream, createWriteStream, unlinkSync, writeFileSync, existsSync} from 'fs';
+import {createReadStream, createWriteStream, rename, unlinkSync, writeFileSync, existsSync} from 'fs';
 import {join, normalize} from 'path';
 import {Extract} from 'unzip2';
 import {get} from 'https';
@@ -74,6 +74,24 @@ export function writePackageJsonSync(target, name = 'theme') {
   const data = JSON.stringify(pkg, null, 2);
 
   writeFileSync(target, data);
+}
+
+/**
+ * Rename a file path
+ *
+ * @param {string} oldPath - The path to the file.
+ * @param {string} newPath - The path to the new file.
+ */
+export function renameFile(oldPath, newPath) {
+  return new Promise((resolve, reject) => {
+    rename(oldPath, newPath, (err) => {
+      if (err) {
+        reject(err);
+        return;
+      }
+      resolve();
+    });
+  });
 }
 
 /**
